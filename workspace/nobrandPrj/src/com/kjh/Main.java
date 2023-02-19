@@ -23,7 +23,10 @@ public class Main {
 //		ms.removeProduct();
 //		ms.insertKind();
 //		ms.removeKind();
-		ms.insertInquiryAns();
+//		ms.insertInquiryAns();
+//		ms.showEventList();
+//		ms.insertEvent();
+		ms.removeEvent();
 //		ps.showProduct();
 		
 	}

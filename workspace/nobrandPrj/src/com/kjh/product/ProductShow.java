@@ -28,7 +28,6 @@ public class ProductShow {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, prodNum);
 		pstmt.setInt(2, Integer.parseInt(kindNum));
-		System.out.println(prodNum + " " + kindNum);
 		ResultSet rs = pstmt.executeQuery();
 		
 		ArrayList<String> sizeArr = new ArrayList();
