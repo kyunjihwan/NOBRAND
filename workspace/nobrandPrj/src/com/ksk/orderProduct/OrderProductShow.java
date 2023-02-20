@@ -8,8 +8,8 @@ import com.kjh.Main;
 
 public class OrderProductShow {
 
-	public void showBasketlist(Connection conn) throws Exception {
-		System.out.println("===== 주문 =====");
+	public void productOrder(Connection conn) throws Exception {
+		System.out.println("===== 주문하기 =====");
 		String sql = "SELECT ORD_NO , BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OR.BASKETLIST_NO ORDER BY ORD_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -28,9 +28,21 @@ public class OrderProductShow {
 		}
 		
 			conn.close();
-			System.out.println("상품을 주문하시겠습니까?");
+			
+			System.out.println("해당 상품들을 결제하시겠습니까?");
+			System.out.println("1. 결제하기");
+			System.out.println("2. 돌아가기");
+			
 			int choiceNum = Main.SC.nextInt();
 			//switch문 -> 결제 메소드로 넘어가기
+			if (choiceNum == 1) {
+				//결제 메소드로 넘어가기
+			}else if (choiceNum == 2) {
+				//메인메뉴로 돌아가기
+			}else {
+				System.out.println("잘못 입력하셨습니다.");
+			}
+			
 	}
 	
 }
