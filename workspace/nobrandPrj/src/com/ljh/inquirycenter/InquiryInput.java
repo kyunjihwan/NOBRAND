@@ -6,7 +6,7 @@ public class InquiryInput {
 	
 	private InquiryService is = new InquiryService();
 	
-	public InquirycenterData writeBoardInput() throws Exception {
+	public InquiryData writeBoardInput() throws Exception {
 		System.out.print("\n아이디(뒤로가기:9) : ");
 		String id = Main.SC.nextLine();
 		if(id.equals("9")) {
@@ -26,7 +26,7 @@ public class InquiryInput {
 			System.out.println("작성 취소");
 			is.startService();
 		}
-		InquirycenterData data = new InquirycenterData();
+		InquiryData data = new InquiryData();
 		data.setId(id);
 		data.setTitle(title);
 		data.setContent(content);

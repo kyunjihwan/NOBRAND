@@ -19,7 +19,7 @@ public class InquiryShow {
 	private InquiryInput ip = new InquiryInput();
 	
 	public void writeBoard () throws Exception {
-		InquirycenterData data = writeBoardInput();
+		InquiryData data = writeBoardInput();
 		conn = JdbcTemplate.getConnection();
 		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL,'1',?,?,SYSDATE)";
 		pstmt = conn.prepareStatement(sql);
@@ -34,7 +34,7 @@ public class InquiryShow {
 		conn.close();
 	}
 	
-	public InquirycenterData writeBoardInput() throws Exception {
+	public InquiryData writeBoardInput() throws Exception {
 		System.out.print("\n아이디(뒤로가기:9) : ");
 		String id = Main.SC.nextLine();
 		if(id.equals("9")) {
@@ -54,7 +54,7 @@ public class InquiryShow {
 			System.out.println("작성 취소");
 			isl.startService();
 		}
-		InquirycenterData data = new InquirycenterData();
+		InquiryData data = new InquiryData();
 		data.setId(id);
 		data.setTitle(title);
 		data.setContent(content);
@@ -63,7 +63,7 @@ public class InquiryShow {
 	
 	public void deleteBoard() throws Exception {
 		showBoardList();
-		InquirycenterData data = deleteBoardInput();
+		InquiryData data = deleteBoardInput();
 		conn = JdbcTemplate.getConnection();
 		sql = "DELETE FROM INQUIRYCENTER WHERE INQ_NO = ?";
 		pstmt = conn.prepareStatement(sql);
@@ -77,8 +77,8 @@ public class InquiryShow {
 		conn.close();
 	}
 	
-	public InquirycenterData deleteBoardInput() throws Exception {
-		InquirycenterData data = new InquirycenterData();
+	public InquiryData deleteBoardInput() throws Exception {
+		InquiryData data = new InquiryData();
 		while(true) {
 			System.out.print("\n삭제할 글의 번호를 입력하세요 : ");
 			no = Main.SC.nextInt();
@@ -135,8 +135,8 @@ public class InquiryShow {
 		conn.close();
 	}
 	
-	public InquirycenterData updateBoardNoInput() throws Exception {
-		InquirycenterData data = new InquirycenterData();
+	public InquiryData updateBoardNoInput() throws Exception {
+		InquiryData data = new InquiryData();
 		while(true) {
 			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
 			no = Main.SC.nextInt();

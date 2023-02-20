@@ -1,13 +1,13 @@
 package com.ljh.inquirycenter;
 
-public class InquirycenterData {
+public class InquiryData {
 
 	private String id;
 	private String title;
 	private String content;
 	private int no;
 
-	public InquirycenterData(String id, String title, String content, int no) {
+	public InquiryData(String id, String title, String content, int no) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -15,7 +15,7 @@ public class InquirycenterData {
 		this.no = no;
 	}
 
-	public InquirycenterData() {
+	public InquiryData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
