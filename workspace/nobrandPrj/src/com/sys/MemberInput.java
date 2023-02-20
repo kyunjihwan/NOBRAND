@@ -88,7 +88,7 @@ public class MemberInput {
 	//비번 찾기 입력받기
 	public MemberData showFindMemberPwd() {
 		
-		System.out.println("아이디 : ");
+		System.out.print("아이디 : ");
 		String memberId = Main.sc.nextLine();
 		
 		MemberData data = new MemberData();
@@ -112,17 +112,59 @@ public class MemberInput {
 	//좋아요 삭제
 	public MemberData deleteGreat() {
 		
-		System.out.println("상품번호 : ");
+		System.out.println("삭제할 상품이 없을시 0을 입력하세요");
+		System.out.print("삭제할 상품번호 : ");
 		String productNo = Main.sc.nextLine();
+		
 		
 		MemberData data = new MemberData();
 		
-		data.setProductNo(productNo);;
+		data.setProductNo(productNo);
 		return data;
 		
 	}
 	
+	//비번변경
+	public MemberData updateMemberPwdInfo() {
+		
+		System.out.print("새 비밀번호 : ");
+		String memberPwd = Main.sc.nextLine();
+		
+		MemberData data = new MemberData();
+		
+		data.setMemberPwd(memberPwd);
+		return data;
+		
+	}
 	
+	//닉변경
+	public MemberData updateMemberNickInfo() {
+		
+		System.out.print("새 닉네임 : ");
+		String memberNick = Main.sc.nextLine();
+		
+		MemberData data = new MemberData();
+		
+		data.setMemberNick(memberNick);
+		return data;
+		
+	}
+	
+
+	//회원탈퇴
+	public MemberData withDraw() {
+		
+		System.out.print("회원탈퇴 하시겠습니까? 1. Y 2. N: ");
+		String withDrawalYN = Main.sc.nextLine();
+		
+		
+		
+		MemberData data = new MemberData();
+		
+		data.setWithDrawalYN(withDrawalYN);
+		return data;
+		
+	}
 	
 	
 	

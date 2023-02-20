@@ -52,7 +52,7 @@ public class MemberService {
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "SELECT MEMBER_ID, MEMBER_PWD, MEMBER_NICK, MEMBER_NO FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ?";
+		String sql = "SELECT MEMBER_ID, MEMBER_PWD, MEMBER_NICK, MEMBER_NO FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ? AND WITHDRAWAL_YN = 'N'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, data.getMemberId());
 		pstmt.setString(2, data.getMemberPwd());
@@ -64,7 +64,6 @@ public class MemberService {
 		if(rs.next()) {
 			String mno = rs.getString("MEMBER_NO");
 			Main.loginMemberNo = mno;
-			System.out.println(mno + "GD");
 			String nick = rs.getString("MEMBER_NICK");
 			System.out.println(nick + " 님 환영합니다.");
 			Main.loginMemberNick = nick;
@@ -222,7 +221,7 @@ public class MemberService {
 		
 		//로그인 여부 검사
 		if(Main.loginMemberNick == null) {
-			System.out.println("로그인 한 유저만 글쓰기가 가능합니다.");
+			System.out.println("로그인 한 유저만 조회가 가능합니다.");
 			return;
 		}
 		
@@ -254,7 +253,7 @@ public class MemberService {
 	}
 		
 		
-		
+	//좋아요 삭제
 	public void deleteGreat() throws Exception {
 		//로그인 여부 검사
 		if(Main.loginMemberNick == null) {
@@ -281,12 +280,122 @@ public class MemberService {
 		}else {
 			System.out.println("실패");
 		}
+		
+		//커넥션 정리
+		conn.close();
 	}
 	
+	//회원정보 수정
+	public void updateMemberInfo() throws Exception {
+		if(Main.loginMemberNick == null) {
+			System.out.println("로그인 한 유저만 변경이 가능합니다.");
+			return;
+		}
+		
+		System.out.println("1. 비밀번호 변경 2. 닉네임 변경");
+		String c = Main.sc.nextLine();
+		if(c.equals("1")) {
+			updateMemberPwdInfo();
+		}else if(c.equals("2")) {
+			updateMemberNickInfo();
+		}
+		
+	}
+	
+	
+	//비밀번호 변경
+	public void updateMemberPwdInfo() throws Exception {
+		
+		
+		//유저 데이터 입력받기
+		MemberData data = mi.updateMemberPwdInfo();
+		
+		//select
+		Connection conn = JdbcTemplate.getConnection();
+		String sql = "UPDATE MEMBER SET MEMBER_PWD = ? WHERE MEMBER_NO = ?"; 
+				
+				
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, data.getMemberPwd());
+		pstmt.setString(2, Main.loginMemberNo);
+		int result = pstmt.executeUpdate();
+		
+		//결과에 따른 처리
+		if(result == 1) {
+			System.out.println("변경완료");
+		}else {
+			System.out.println("실패");
+		}
+		
+		//커넥션 정리
+		conn.close();
+	}
 
+	//닉네임 변경
+	public void updateMemberNickInfo() throws Exception {
+		
+		//유저 데이터 입력받기
+		MemberData data = mi.updateMemberNickInfo();
+		
+		//select
+		Connection conn = JdbcTemplate.getConnection();
+		String sql = "UPDATE MEMBER SET MEMBER_NICK = ? WHERE MEMBER_NO = ?"; 
+				
+				
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, data.getMemberNick());
+		pstmt.setString(2, Main.loginMemberNo);
+		int result = pstmt.executeUpdate();
+		
+		//결과에 따른 처리
+		if(result == 1) {
+			System.out.println("변경완료");
+		}else {
+			System.out.println("실패");
+		}
+		
+		//커넥션 정리
+		conn.close();
+	}
 
-
-
+	//회원탈퇴
+	public void withDraw() throws Exception {
+		//로그인 여부 검사
+		if(Main.loginMemberNick == null) {
+			System.out.println("로그인 한 유저만 삭제가 가능합니다.");
+			return;
+		}
+		
+		//유저 데이터 입력받기
+		MemberData data = mi.withDraw();
+		
+		if(data.getWithDrawalYN().equals("N")) {
+			return;
+		}
+		
+		//select
+		Connection conn = JdbcTemplate.getConnection();
+		String sql = "UPDATE MEMBER SET WITHDRAWAL_YN = ? WHERE MEMBER_NO = ?"; 
+				
+				
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, data.getWithDrawalYN());
+		pstmt.setString(2, Main.loginMemberNo);
+		int result = pstmt.executeUpdate();
+		
+		//결과에 따른 처리
+		if(result == 1) {
+			System.out.println("탈퇴완료");
+		}else {
+			System.out.println("실패");
+		}
+		
+		//커넥션 정리
+		conn.close();
+	}
+	
+	
+	
 
 }//class
 

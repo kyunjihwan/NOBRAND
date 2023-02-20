@@ -32,8 +32,9 @@ public class MainService {
 		case "5" : ms.showFindMemberId(); break;
 		case "6" : ms.showFindMemberPwd(); break;		
 		case "7" : ms.insertGreat(); break;
-		case "8" : ms.showGreat(); break;
-		case "9" : ms.Great(); break;
+		case "8" : ms.Great(); break;
+		case "9" : ms.updateMemberInfo(); break;
+		case "10" : ms.withDraw(); break;
 		default : System.out.println("잘못 입력하셨습니다.");
 		}
 	}
@@ -48,7 +49,9 @@ public class MainService {
 		System.out.println("6. 비번 찾기");
 		System.out.println("7. 좋아요");
 		System.out.println("8. 좋아요 조회");
-		System.out.println("9. 좋아요 삭제");
+		System.out.println("9. 회원정보 변경");
+		System.out.println("10. 회원 탈퇴");
+		
 		System.out.println("99. 종료");
 	}
 
