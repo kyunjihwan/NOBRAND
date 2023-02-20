@@ -1,9 +1,6 @@
 package com.sys;
 
-import java.sql.Connection;
 import java.util.Scanner;
-
-import com.sys.MainService;
 
 public class Main {
 	
@@ -15,10 +12,10 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception {
 		
+		MainService ms = new MainService();
 		System.out.println("==========");
 
 		//비니지스 로직
-		MainService ms = new MainService();
 		while(true) {
 			boolean isFinish = ms.startService();
 			if(isFinish) {break;}
