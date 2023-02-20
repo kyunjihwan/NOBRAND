@@ -8,7 +8,7 @@ import com.kjh.Main;
 
 public class OrderProductShow {
 
-	public void showBasketlist(Connection conn) throws Exception {
+	public void productOrder(Connection conn) throws Exception {
 		System.out.println("===== 주문하기 =====");
 		String sql = "SELECT ORD_NO , BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OR.BASKETLIST_NO ORDER BY ORD_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);

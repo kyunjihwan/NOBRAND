@@ -5,9 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
+import com.jdbc.JdbcTemplate;
+
 public class BasketInput {
 
-	public void inputBasket(Connection conn) throws Exception {
+	
+	
+	public void inputBasket() throws Exception {
+		
+		Connection conn = JdbcTemplate.getConnection();
+		
 		System.out.println("===== 장바구니 담기 =====");
 		
 		Scanner sc = new Scanner(System.in);
@@ -20,9 +27,9 @@ public class BasketInput {
 				
 		String sql = "INSERT INTO BASKET(BASKET_NO, PROD_NO, LETTER, LETTER_POTION) VALUES (SEQ_BAKSET_NO.NEXTVAL, ?, ?, ?) ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(2, pno);
-		pstmt.setString(3, ltr);
-		pstmt.setString(4, lpo);
+		pstmt.setString(1, pno);
+		pstmt.setString(2, ltr);
+		pstmt.setString(3, lpo);
 		
 		int result = pstmt.executeUpdate();
 		

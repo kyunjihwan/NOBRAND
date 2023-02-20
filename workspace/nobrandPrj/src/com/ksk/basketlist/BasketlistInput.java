@@ -5,12 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
+import com.jdbc.JdbcTemplate;
+
 public class BasketlistInput {
 
-	public void inputBasketlist(Connection conn) throws Exception {
+	public void inputBasketlist() throws Exception {
+		
+		Connection conn = JdbcTemplate.getConnection();
+		
 		System.out.println("===== 장바구니 내역 담기 =====");
 		
-		String sql = "INSERT INTO BASKETLIST( MEMBER_NO, BASKET_NO ) VALUES (로그인한회원번호 , SEQ_BASKETLIST_NO.CURVAL) ";
+		String sql = "INSERT INTO BASKETLIST(BASKETLIST_NO, MEMBER_NO, BASKET_NO ) VALUES (SEQ_BASKETLIST_NO.CURVAL, 로그인한회원번호 , SEQ_BASKET_NO.CURVAL) ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		int result = pstmt.executeUpdate();

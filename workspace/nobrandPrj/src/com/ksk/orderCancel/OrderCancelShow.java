@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.jdbc.JdbcTemplate;
 import com.kjh.Main;
 
 public class OrderCancelShow {
 
-	public void showBasketlist(Connection conn) throws Exception {
+	public void CancelOrder() throws Exception {
+		
+		Connection conn = JdbcTemplate.getConnection();
+		
 		System.out.println("===== 주문취소 =====");
 		String sql = "SELECT ORD_C_NO , ORD_NO , ORD_C_DATE FROM ORDER_CANCEL OC JOIN ORDER_PRODUCT OR ON OC.ORD_NO = OP.ORD_NO ORDER BY ORD_C_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
