@@ -1,7 +1,6 @@
 package com.sys;
 
-
-import com.sys.MemberService;
+import com.nobrand.main.Main;
 
 public class MainService {
 	
@@ -12,9 +11,9 @@ public class MainService {
 		showMenu();
 		
 		//입력받기
-		String input = Main.sc.nextLine();
+		String input = Main.SC.nextLine();
 		
-		if("99".equals(input)) {
+		if("9".equals(input)) {
 			return true;
 		}
 		
@@ -26,33 +25,56 @@ public class MainService {
 	
 	private void processService(String input) throws Exception {
 		switch(input) {
-		case "0" : ms.managerLogin(); break;
-		case "1" : ms.join(); break;
+		case "99" : ms.managerLogin(); break;
+		case "1" : ms.join(); startMenuService(); break;
 		case "2" : ms.login(); break;
-		case "5" : ms.showFindMemberId(); break;
-		case "6" : ms.showFindMemberPwd(); break;		
-		case "7" : ms.insertGreat(); break;
-		case "8" : ms.Great(); break;
-		case "9" : ms.updateMemberInfo(); break;
-		case "10" : ms.withDraw(); break;
+		case "3" : ms.showFindMemberId(); break;
+		case "4" : ms.showFindMemberPwd(); break;		
 		default : System.out.println("잘못 입력하셨습니다.");
 		}
 	}
 	
 	private void showMenu() {
-		System.out.println("0. 마스터계정로그인");
 		System.out.println("1. 회원가입");
 		System.out.println("2. 로그인");
-		System.out.println("3. 게시글 작성");
-		System.out.println("4. 게시글 목록 조회");
-		System.out.println("5. 아이디 찾기");
-		System.out.println("6. 비번 찾기");
-		System.out.println("7. 좋아요");
-		System.out.println("8. 좋아요 조회");
-		System.out.println("9. 회원정보 변경");
-		System.out.println("10. 회원 탈퇴");
+		System.out.println("3. 아이디 찾기");
+		System.out.println("4. 비번 찾기");
+		System.out.println("9. 종료");
 		
-		System.out.println("99. 종료");
+	}
+	
+	private boolean startMenuService() {
+		
+		showMenuService();
+		
+		String input = Main.SC.nextLine();
+		
+		if("9".equals(input)) {
+			return true;
+		}
+		
+		switch(input) {
+		case "1" : break;
+		case "2" : break;
+		case "3" : break;
+		case "4" : break;
+		case "5" : break;
+		default : System.out.println("잘못 입력했습니다."); 
+		}
+		
+		return false;
+		
+	}
+	
+	private void showMenuService() {
+
+		System.out.println("1. 마이페이지");
+		System.out.println("2. 좋아요");
+		System.out.println("3. 장바구니");
+		System.out.println("4. 쇼핑페이지");
+		System.out.println("5. 고객문의센터");
+		System.out.println("9. 뒤로가기");
+		
 	}
 
 }//class

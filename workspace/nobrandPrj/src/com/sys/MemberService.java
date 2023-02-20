@@ -3,11 +3,8 @@ package com.sys;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-
-import com.sys.MemberData;
-import com.sys.MemberInput;
+import com.nobrand.main.Main;
 
 public class MemberService {
 
@@ -293,7 +290,7 @@ public class MemberService {
 		}
 		
 		System.out.println("1. 비밀번호 변경 2. 닉네임 변경");
-		String c = Main.sc.nextLine();
+		String c = Main.SC.nextLine();
 		if(c.equals("1")) {
 			updateMemberPwdInfo();
 		}else if(c.equals("2")) {

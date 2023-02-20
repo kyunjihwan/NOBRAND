@@ -1,25 +1,25 @@
 package com.sys;
 
-import com.sys.MemberData;
+import com.nobrand.main.Main;
 
 public class MemberInput {
 	
 	//회원가입 입력받기
 	public MemberData join() {
 		System.out.print("아이디 : ");
-		String memberId = Main.sc.nextLine();
+		String memberId = Main.SC.nextLine();
 		System.out.print("비밀번호 : ");
-		String memberPwd = Main.sc.nextLine();
+		String memberPwd = Main.SC.nextLine();
 		System.out.print("닉네임 : ");
-		String memberNick = Main.sc.nextLine();
+		String memberNick = Main.SC.nextLine();
 		System.out.print("주소 : ");
-		String memberAdr = Main.sc.nextLine();
+		String memberAdr = Main.SC.nextLine();
 		System.out.print("핸드폰번호 : ");
-		String memberPh = Main.sc.nextLine();
+		String memberPh = Main.SC.nextLine();
 		System.out.print("힌트내용 : ");
-		String hintContent = Main.sc.nextLine();	
+		String hintContent = Main.SC.nextLine();	
 		System.out.print("힌트 정답 : ");
-		String answerHint = Main.sc.nextLine();
+		String answerHint = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		data.setMemberId(memberId);
@@ -37,9 +37,9 @@ public class MemberInput {
 	public MemberData login() {
 		System.out.println("회원로그인");
 		System.out.print("아이디 : ");
-		String memberId = Main.sc.nextLine();
+		String memberId = Main.SC.nextLine();
 		System.out.print("비밀번호 : ");
-		String memberPwd = Main.sc.nextLine();
+		String memberPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		data.setMemberId(memberId);
@@ -51,9 +51,9 @@ public class MemberInput {
 	public MemberData managerLogin() {
 		System.out.println("관리자로그인");
 		System.out.print("아이디 : ");
-		String managerId = Main.sc.nextLine();
+		String managerId = Main.SC.nextLine();
 		System.out.print("비밀번호 : ");
-		String managerPwd = Main.sc.nextLine();
+		String managerPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		data.setManagerId(managerId);
@@ -65,7 +65,7 @@ public class MemberInput {
 	public MemberData showFindMemberId() {
 				
 		System.out.println("핸드폰번호 : ");
-		String memberPh = Main.sc.nextLine();
+		String memberPh = Main.SC.nextLine();
 		
 		
 		MemberData data = new MemberData();
@@ -77,7 +77,7 @@ public class MemberInput {
 	public MemberData showFindMemberIdd() {
 		
 		System.out.print("정답 : ");
-		String answerHint = Main.sc.nextLine();
+		String answerHint = Main.SC.nextLine();
 		
 		
 		MemberData data = new MemberData();
@@ -89,7 +89,7 @@ public class MemberInput {
 	public MemberData showFindMemberPwd() {
 		
 		System.out.print("아이디 : ");
-		String memberId = Main.sc.nextLine();
+		String memberId = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		
@@ -101,7 +101,7 @@ public class MemberInput {
 	public MemberData insertGreat() {
 		
 		System.out.println("상품번호 : ");
-		String productNo = Main.sc.nextLine();
+		String productNo = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		
@@ -114,7 +114,7 @@ public class MemberInput {
 		
 		System.out.println("삭제할 상품이 없을시 0을 입력하세요");
 		System.out.print("삭제할 상품번호 : ");
-		String productNo = Main.sc.nextLine();
+		String productNo = Main.SC.nextLine();
 		
 		
 		MemberData data = new MemberData();
@@ -128,7 +128,7 @@ public class MemberInput {
 	public MemberData updateMemberPwdInfo() {
 		
 		System.out.print("새 비밀번호 : ");
-		String memberPwd = Main.sc.nextLine();
+		String memberPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		
@@ -141,7 +141,7 @@ public class MemberInput {
 	public MemberData updateMemberNickInfo() {
 		
 		System.out.print("새 닉네임 : ");
-		String memberNick = Main.sc.nextLine();
+		String memberNick = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
 		
@@ -155,7 +155,7 @@ public class MemberInput {
 	public MemberData withDraw() {
 		
 		System.out.print("회원탈퇴 하시겠습니까? 1. Y 2. N: ");
-		String withDrawalYN = Main.sc.nextLine();
+		String withDrawalYN = Main.SC.nextLine();
 		
 		
 		
