@@ -14,16 +14,18 @@ public class MemberData {
 	private String managerId;
 	private String managerPwd;
 	private String managerNick;
-	
+	private String productNo;
 	
 
 	
 	
 	
 	
+	
+	
 	public MemberData(String memberNo, String memberId, String memberPwd, String memberNick, String memberAdr,
 			String memberPh, String hintContent, String answerHint, String managerNo, String managerId,
-			String managerPwd, String managerNick) {
+			String managerPwd, String managerNick, String productNo) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -37,7 +39,19 @@ public class MemberData {
 		this.managerId = managerId;
 		this.managerPwd = managerPwd;
 		this.managerNick = managerNick;
+		this.productNo = productNo;
 	}
+
+
+	public String getProductNo() {
+		return productNo;
+	}
+
+
+	public void setProductNo(String productNo) {
+		this.productNo = productNo;
+	}
+
 
 	public String getMemberNo() {
 		return memberNo;

@@ -98,18 +98,29 @@ public class MemberInput {
 	}
 	
 	//좋아요 입력받기
-		public MemberData InsertGreat() {
-			
-			System.out.println("상품번호 : ");
-			String memberId = Main.sc.nextLine();
-			
-			MemberData data = new MemberData();
-			
-			data.setMemberId(memberId);
-			return data;
-		}
+	public MemberData insertGreat() {
+		
+		System.out.println("상품번호 : ");
+		String productNo = Main.sc.nextLine();
+		
+		MemberData data = new MemberData();
+		
+		data.setProductNo(productNo);;
+		return data;
+	}
 
-	
+	//좋아요 삭제
+	public MemberData deleteGreat() {
+		
+		System.out.println("상품번호 : ");
+		String productNo = Main.sc.nextLine();
+		
+		MemberData data = new MemberData();
+		
+		data.setProductNo(productNo);;
+		return data;
+		
+	}
 	
 	
 	
