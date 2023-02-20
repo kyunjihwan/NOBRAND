@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import com.jdbc.JdbcTemplate;
 import com.main.Main;
 
-public class ReviewManager {
+public class ReviewShow {
 	
 	private String sql;
 	private PreparedStatement pstmt;
@@ -168,7 +168,7 @@ public class ReviewManager {
 		System.out.println("NO          TITLE             RATING           WRITER             DATE");
 		System.out.println("---------------------------------------------------------------------------");
 		
-		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO";
+		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO ORDER BY REVIEW_NO";
 		conn = JdbcTemplate.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();

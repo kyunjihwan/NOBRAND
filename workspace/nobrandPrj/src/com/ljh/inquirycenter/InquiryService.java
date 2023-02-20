@@ -3,9 +3,15 @@ package com.ljh.inquirycenter;
 import com.main.Main;
 
 public class InquiryService {
-
+	
+	public void inquiry() throws Exception {
+		while(true) {
+			boolean isFinish = startService();
+			if(isFinish) {break;}
+		}
+	}
+	
 	public boolean startService() throws Exception {
-		
 		while(true) {
 			System.out.println("                   고객센터");
 			System.out.println("");
@@ -17,11 +23,10 @@ public class InquiryService {
 			System.out.print("\n메뉴를 선택하세요 : ");
 			
 			String input = Main.SC.next();
-			InquiryManager im = new InquiryManager();
+			InquiryShow im = new InquiryShow();
 			if(input.equals("9")) {
 				return true;
 			}
-			
 			switch(input) {
 			case "1" : im.writeBoard(); break;
 			case "2" : im.deleteBoard(); break;
@@ -30,8 +35,6 @@ public class InquiryService {
 			default : System.out.println("다시 입력해주세요.");
 			}
 			return false;
-		
 		}
-	
 	}
 }

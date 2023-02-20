@@ -4,6 +4,13 @@ import com.main.Main;
 
 public class ReviewService {
 	
+	public void review() throws Exception {
+		while(true) {
+			boolean isFinish = startService();
+			if(isFinish) {break;}
+		}
+	}
+	
 	public boolean startService() throws Exception {
 		
 		System.out.println("                   리뷰");
@@ -16,18 +23,15 @@ public class ReviewService {
 		System.out.print("\n메뉴를 선택하세요 : ");
 		
 		String input = Main.SC.next();
-		ReviewManager rm = new ReviewManager();
-		
-		
+		ReviewShow rs = new ReviewShow();
 		if(input.equals("9")) {
 			return true;
 		}
-		
 		switch(input) {
-		case "1" : rm.writeReview(); break;
-		case "2" : rm.deleteReview(); break;
-		case "3" : rm.updateReview(); break;
-		case "4" : rm.showAndRequestList(); break;
+		case "1" : rs.writeReview(); break;
+		case "2" : rs.deleteReview(); break;
+		case "3" : rs.updateReview(); break;
+		case "4" : rs.showAndRequestList(); break;
 		default : System.out.println("다시 입력해주세요.");
 		}
 		return false;
