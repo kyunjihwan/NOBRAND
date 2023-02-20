@@ -192,26 +192,21 @@ public class MemberService {
 			
 			//select
 			Connection conn = JdbcTemplate.getConnection();
-			String sql = "SELECT M.MEMBER_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PRODUCT_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
+			String sql = "SELECT PRODUCT_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PRODUCT_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
 					
 					
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "1");
+			pstmt.setString(1, Main.loginMemberNo);
 			ResultSet rs = pstmt.executeQuery();
 			
 			//결과집합에서 데이터 꺼내기
-			if(rs.next()) {
-				
-				
-			
-				String pno = rs.getString("MEMBER_NO");
+			while(rs.next()) {
+				String pno = rs.getString("PRODUCT_NO");
 				String pname = rs.getString("PROD_NAME");
 				String price = rs.getString("PRICE");
 				
-				System.out.println(pno + " | " + pname + "|" + price);
+				System.out.println(pno + " | " + pname + " | " + price);
 				
-			}else {
-				System.out.println("좋아요한 상품이 없습니다.");
 			}
 			
 			conn.close();
