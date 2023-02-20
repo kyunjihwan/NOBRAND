@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
 import com.main.Main;
+import com.sys.MemberData;
 
 public class InquiryShow {
 	
@@ -15,14 +16,16 @@ public class InquiryShow {
 	private ResultSet rs;
 	private int result;
 	private int no;
-	private InquiryService isl = new InquiryService();
+	private InquiryService is = new InquiryService();
 	private InquiryInput ip = new InquiryInput();
 	
 	public void writeBoard () throws Exception {
-		InquiryData data = writeBoardInput();
+		InquiryData data = ip.writeBoardInput();
+		MemberData member = new MemberData();
 		conn = JdbcTemplate.getConnection();
-		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL,'1',?,?,SYSDATE)";
+		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL,?,?,?,SYSDATE)";
 		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, member.getMemberNo());
 		pstmt.setString(1, data.getTitle());
 		pstmt.setString(2, data.getContent());
 		result = pstmt.executeUpdate();
@@ -34,36 +37,9 @@ public class InquiryShow {
 		conn.close();
 	}
 	
-	public InquiryData writeBoardInput() throws Exception {
-		System.out.print("\n아이디(뒤로가기:9) : ");
-		String id = Main.SC.nextLine();
-		if(id.equals("9")) {
-			System.out.println("작성 취소");
-			isl.startService();
-		}
-		Main.SC.nextLine();
-		System.out.print("제목(뒤로가기:9) : ");
-		String title = Main.SC.nextLine();
-		if(title.equals("9")) {
-			System.out.println("작성 취소");
-			isl.startService();
-		}
-		System.out.print("내용(뒤로가기:9) : ");
-		String content = Main.SC.nextLine();
-		if(content.equals("9")) {
-			System.out.println("작성 취소");
-			isl.startService();
-		}
-		InquiryData data = new InquiryData();
-		data.setId(id);
-		data.setTitle(title);
-		data.setContent(content);
-		return data;
-	}
-	
 	public void deleteBoard() throws Exception {
 		showBoardList();
-		InquiryData data = deleteBoardInput();
+		InquiryData data = ip.deleteBoardInput(conn);
 		conn = JdbcTemplate.getConnection();
 		sql = "DELETE FROM INQUIRYCENTER WHERE INQ_NO = ?";
 		pstmt = conn.prepareStatement(sql);
@@ -76,49 +52,34 @@ public class InquiryShow {
 		}
 		conn.close();
 	}
-	
-	public InquiryData deleteBoardInput() throws Exception {
-		InquiryData data = new InquiryData();
-		while(true) {
-			System.out.print("\n삭제할 글의 번호를 입력하세요 : ");
-			no = Main.SC.nextInt();
-			data.setNo(no);
-			conn = JdbcTemplate.getConnection();
-			sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,no);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				break;
-			}else {
-				System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
-			}
-			conn.close();
-		}return data;
-		
-	}
-	
+
 	public void updateBoard() throws Exception {
 		showBoardList();
-		updateBoardNoInput();
+		//수정할 글 번호 입력 받기 
+		ip.boardNoInput(conn);
 		showDetailBoard();
-		System.out.println("\n수정할 제목을 입력하세요.(수정 사항 없으면 9) : ");
-		String title = Main.SC.next();
-		Main.SC.nextLine();
-		if(title.equals("9")) {
-				conn = JdbcTemplate.getConnection();
-				sql = "SELECT INQ_TITLE FROM INQUIRYCENTER WHERE INQ_NO = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1,no);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					title = rs.getString(1);
-				}
-				System.out.println("수정할 내용을 입력하세요. : ");
-		}else {
-			System.out.println("수정할 내용을 입력하세요. (수정 사항 없으면 9) : ");
-		}
-		String content = Main.SC.nextLine();
+		//수정 데이터 입력 받기 
+		ip.updateBoardInput(conn);
+		
+//		System.out.println("\n수정할 제목을 입력하세요.(수정 사항 없으면 9) : ");
+//		String title = Main.SC.next();
+//		Main.SC.nextLine();
+//		if(title.equals("9")) {
+//				conn = JdbcTemplate.getConnection();
+//				sql = "SELECT INQ_TITLE FROM INQUIRYCENTER WHERE INQ_NO = ?";
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setInt(1,no);
+//				rs = pstmt.executeQuery();
+//				if(rs.next()) {
+//					title = rs.getString(1);
+//				}
+//				System.out.println("수정할 내용을 입력하세요. : ");
+//		}else {
+//			System.out.println("수정할 내용을 입력하세요. (수정 사항 없으면 9) : ");
+//		}
+//		String content = Main.SC.nextLine();
+		
+
 		conn = JdbcTemplate.getConnection();
 		sql = "UPDATE INQUIRYCENTER SET INQ_TITLE = ?, INQ_CONTENT = ? WHERE INQ_NO = ?";
 		pstmt = conn.prepareStatement(sql);
@@ -135,26 +96,8 @@ public class InquiryShow {
 		conn.close();
 	}
 	
-	public InquiryData updateBoardNoInput() throws Exception {
-		InquiryData data = new InquiryData();
-		while(true) {
-			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
-			no = Main.SC.nextInt();
-			data.setNo(no);
-			conn = JdbcTemplate.getConnection();
-			sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				break;
-			}else {
-				System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
-			}
-			rs.close();
-			conn.close();
-		}return data;
-	}
+	
+
 	
 	
 	public void showBoardList() throws Exception {

@@ -1,6 +1,7 @@
 package com.ljh.inquirycenter;
 
 import java.util.Scanner;
+import com.sys.*;
 
 public class Inquiry {
 
