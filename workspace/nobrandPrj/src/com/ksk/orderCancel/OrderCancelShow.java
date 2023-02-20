@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.kjh.Main;
+
 public class OrderCancelShow {
 
 	public void showBasketlist(Connection conn) throws Exception {
@@ -20,6 +22,10 @@ public class OrderCancelShow {
 			System.out.println(OrdCNo + " , " + OrdNo + " , " + OrdCDate);
 	
 			conn.close();
+			
+			System.out.println("주문을 취소하시겠습니까?");
+			int choiceNum = Main.SC.nextInt();
+			//switch문 -> 결제취소 메소드로 넘어가기
 	}
 	
 }

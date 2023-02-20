@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.kjh.Main;
+
 public class OrderProductShow {
 
 	public void showBasketlist(Connection conn) throws Exception {
@@ -12,6 +14,8 @@ public class OrderProductShow {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
+		while(rs.next())
+		{
 			String OrdNo = rs.getString("ORD_NO");
 			String BasketlistNo = rs.getString("BASKETLIST_NO");
 			String OrdpriceTotal = rs.getString("ORDPRICE_TOTAL");
@@ -21,8 +25,12 @@ public class OrderProductShow {
 			
 			System.out.println("주문할 상품의 주문번호, 총구매금액, 주문일시, 배송주소, 연락처입니다.");
 			System.out.println(OrdNo + " , " + BasketlistNo + " , " + OrdpriceTotal + " , " + OrdDate + " , " + OrdAdr + " , " + OrdPh);
-	
+		}
+		
 			conn.close();
+			System.out.println("상품을 주문하시겠습니까?");
+			int choiceNum = Main.SC.nextInt();
+			//switch문 -> 결제 메소드로 넘어가기
 	}
 	
 }
