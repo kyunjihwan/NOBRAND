@@ -15,7 +15,7 @@ public class MemberData {
 	private String managerPwd;
 	private String managerNick;
 	private String productNo;
-	
+	private String withDrawalYN;
 
 	
 	
@@ -23,9 +23,13 @@ public class MemberData {
 	
 	
 	
+	
+
+	
+
 	public MemberData(String memberNo, String memberId, String memberPwd, String memberNick, String memberAdr,
 			String memberPh, String hintContent, String answerHint, String managerNo, String managerId,
-			String managerPwd, String managerNick, String productNo) {
+			String managerPwd, String managerNick, String productNo, String withDrawalYN) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -40,7 +44,21 @@ public class MemberData {
 		this.managerPwd = managerPwd;
 		this.managerNick = managerNick;
 		this.productNo = productNo;
+		this.withDrawalYN = withDrawalYN;
 	}
+
+
+
+	public String getWithDrawalYN() {
+		return withDrawalYN;
+	}
+
+
+
+	public void setWithDrawalYN(String withDrawalYN) {
+		this.withDrawalYN = withDrawalYN;
+	}
+
 
 
 	public String getProductNo() {
