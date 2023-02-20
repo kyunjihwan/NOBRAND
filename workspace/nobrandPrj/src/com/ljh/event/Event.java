@@ -8,13 +8,9 @@ import com.main.Main;
 public class Event {
 
 	public static void main(String[] args) throws Exception {
-		
+		//이벤트 서비스 불러오기 
 		EventService es = new EventService();
-		while(true) {
-			boolean isFinish = es.startService();
-			if(isFinish) {break;}
-		}
-		
+		es.event();
 	}
 
 }
