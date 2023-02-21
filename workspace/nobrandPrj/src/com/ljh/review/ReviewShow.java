@@ -21,13 +21,12 @@ public class ReviewShow {
 	
 	public void writeReview() throws Exception {
 		
-		System.out.print("제목(뒤로가기:9) : ");
-		String title = Main.SC.next();
+		System.out.print("\n제목(뒤로가기:9) : ");
+		String title = Main.SC.nextLine();
 		if(title.equals("9")) {
 			System.out.println("작성 취소");
 			rvs.startService();
 		}
-		Main.SC.nextLine();
 		
 		System.out.print("내용(뒤로가기:9) : ");
 		String content = Main.SC.nextLine();
@@ -59,9 +58,9 @@ public class ReviewShow {
 	}
 	
 	public void deleteReview() throws Exception {
-		
+		//글 목록 보여주기
 		showReviewList();
-		
+		//삭제할 글 정보 받아오기
 		while(true) {
 			System.out.print("\n삭제할 글의 번호를 선택하세요 : ");
 			no = Main.SC.nextInt();
@@ -79,13 +78,13 @@ public class ReviewShow {
 			}
 			conn.close();
 		}
-		
+		//삭제 여부 수정 
 		conn = JdbcTemplate.getConnection();
-		sql = "DELETE FROM REVIEW WHERE REVIEW_NO = ?";
+		sql = "UPDATE REVIEW SET RE_DEL_YN = 'Y' WHERE REVIEW_NO = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, no);
 		result = pstmt.executeUpdate();
-		
+		//글 목록으로 돌아가기
 		showReviewList();
 		
 		if(result == 1) {
@@ -97,9 +96,9 @@ public class ReviewShow {
 	}
 	
 	public void updateReview() throws Exception {
-		
+		//글 목록 보여주기
 		showReviewList();
-		
+		//수정할 글 정보 받아오기
 		while(true) {
 			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
 			no = Main.SC.nextInt();
@@ -108,7 +107,6 @@ public class ReviewShow {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				break;
 			}else {
@@ -116,14 +114,13 @@ public class ReviewShow {
 			}
 			conn.close();
 		}
-		
+		//수정할 글 상세조회
 		showDetailReview();
-		
-		
+		//수정할 정보 받아오기
 		System.out.println("\n수정할 제목을 입력하세요.(수정사항 없으면 9) : ");
 		String title = Main.SC.next();
 		Main.SC.nextLine();
-		
+		//제목 수정사항 없으면 내용 수정으로 넘어가기 
 		if(title.equals("9")) {
 			conn = JdbcTemplate.getConnection();
 			sql = "SELECT RE_TITLE FROM REVIEW WHERE REVIEW_NO = ?";
@@ -134,6 +131,7 @@ public class ReviewShow {
 				title = rs.getString(1);
 			}
 			System.out.println("수정할 내용을 입력하세요 : ");
+		//제목 수정 후 내용 수정
 		}else {
 			System.out.println("수정할 내용을 입력하세요 (수정사항 없으면 9) : ");
 		}
@@ -168,7 +166,8 @@ public class ReviewShow {
 		System.out.println("NO          TITLE             RATING           WRITER             DATE");
 		System.out.println("---------------------------------------------------------------------------");
 		
-		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO ORDER BY REVIEW_NO";
+		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') "
+				+ "FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO WHERE RE_DEL_YN = 'N' ORDER BY REVIEW_NO ";
 		conn = JdbcTemplate.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();

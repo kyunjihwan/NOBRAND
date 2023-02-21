@@ -18,7 +18,7 @@ public class InquiryInput {
 			System.out.println("작성 취소");
 			is.startService();
 		}
-//		Main.SC.nextLine();
+
 		System.out.print("내용(뒤로가기:9) : ");
 		String content = Main.SC.nextLine();
 		if(content.equals("9")) {

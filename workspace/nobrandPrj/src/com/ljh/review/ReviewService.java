@@ -22,7 +22,7 @@ public class ReviewService {
 		System.out.println("9. 뒤로가기");
 		System.out.print("\n메뉴를 선택하세요 : ");
 		
-		String input = Main.SC.next();
+		String input = Main.SC.nextLine();
 		ReviewShow rs = new ReviewShow();
 		if(input.equals("9")) {
 			return true;
