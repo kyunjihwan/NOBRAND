@@ -34,11 +34,11 @@ public class OrderProductShow {
 			System.out.println("2. 돌아가기");
 			
 			int choiceNum = Main.SC.nextInt();
-			//switch문 -> 결제 메소드로 넘어가기
+			
 			if (choiceNum == 1) {
 				//결제 메소드로 넘어가기
 			}else if (choiceNum == 2) {
-				//메인메뉴로 돌아가기
+				System.out.println("홈으로 돌아갑니다.");
 			}else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
