@@ -21,13 +21,12 @@ public class ReviewShow {
 	
 	public void writeReview() throws Exception {
 		
-		System.out.print("제목(뒤로가기:9) : ");
-		String title = Main.SC.next();
+		System.out.print("\n제목(뒤로가기:9) : ");
+		String title = Main.SC.nextLine();
 		if(title.equals("9")) {
 			System.out.println("작성 취소");
 			rvs.startService();
 		}
-		Main.SC.nextLine();
 		
 		System.out.print("내용(뒤로가기:9) : ");
 		String content = Main.SC.nextLine();
