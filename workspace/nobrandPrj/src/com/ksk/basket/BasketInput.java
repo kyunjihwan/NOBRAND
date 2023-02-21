@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 import com.jdbc.JdbcTemplate;
+import com.ksk.basketlist.BasketlistInput;
+import com.nobrand.main.Main;
 
 public class BasketInput {
 
 	
+	BasketlistInput bli = new BasketlistInput();
 	
 	public void inputBasket(String pno, Connection conn) throws Exception {
 		
@@ -30,6 +33,8 @@ public class BasketInput {
 		
 		int result = pstmt.executeUpdate();
 		
+		bli.inputBasketlist(conn);
+		
 		if(result == 1) {
 			System.out.println("장바구니 담기 완료");
 		}else {
@@ -37,5 +42,6 @@ public class BasketInput {
 		}
 		
 	}
+	
 	
 }
