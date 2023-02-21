@@ -21,7 +21,6 @@ public class InquiryShow {
 	
 	public void writeBoard () throws Exception {
 		InquiryData data = ip.writeBoardInput();
-		MemberData member = new MemberData();
 		conn = JdbcTemplate.getConnection();
 		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL, ? , ? , ? , SYSDATE)";
 		pstmt = conn.prepareStatement(sql);
@@ -41,7 +40,7 @@ public class InquiryShow {
 		showBoardList();
 		InquiryData data = ip.deleteBoardInput(conn);
 		conn = JdbcTemplate.getConnection();
-		sql = "DELETE FROM INQUIRYCENTER WHERE INQ_NO = ?";
+		sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, data.getNo());
 		result = pstmt.executeUpdate();
@@ -77,6 +76,7 @@ public class InquiryShow {
 		System.out.println("\n수정할 제목을 입력하세요.(수정 사항 없으면 9) : ");
 		String title = Main.SC.next();
 		Main.SC.nextLine();
+		//제목 수정 사항 없으면 내용 수정으로 넘어 가기
 		if(title.equals("9")) {
 				conn = JdbcTemplate.getConnection();
 				sql = "SELECT INQ_TITLE FROM INQUIRYCENTER WHERE INQ_NO = ?";
@@ -87,6 +87,7 @@ public class InquiryShow {
 					title = rs.getString(1);
 				}
 				System.out.println("수정할 내용을 입력하세요. : ");
+		//제목 수정 후 내용 수정		
 		}else {
 			System.out.println("수정할 내용을 입력하세요. (수정 사항 없으면 9) : ");
 		}
@@ -113,7 +114,8 @@ public class InquiryShow {
 		System.out.println("");
 		System.out.println("NO        TITLE          WRITER           DATE");
 		System.out.println("--------------------------------------------------");
-		sql = "SELECT INQ_NO, RPAD(INQ_TITLE,15), RPAD(MEMBER_NICK,10), TO_CHAR(INQ_ENROLL_DATE, 'YYYY-MM-DD') FROM INQUIRYCENTER I JOIN MEMBER M ON I.MEMBER_NO = M.MEMBER_NO ORDER BY INQ_NO";
+		sql = "SELECT INQ_NO, RPAD(INQ_TITLE,15), RPAD(MEMBER_NICK,10), TO_CHAR(INQ_ENROLL_DATE, 'YYYY-MM-DD') "
+				+ "FROM INQUIRYCENTER I JOIN MEMBER M ON I.MEMBER_NO = M.MEMBER_NO WHERE INQ_DEL_YN = 'N' ORDER BY INQ_NO";
 		conn = JdbcTemplate.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
