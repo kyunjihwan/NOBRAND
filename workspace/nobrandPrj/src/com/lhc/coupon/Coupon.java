@@ -7,7 +7,8 @@ public class Coupon {
 		System.out.println("쿠폰");
 		
 		CouponLoad c = new CouponLoad();
-		c.CouponShow();
+		c.couponService();
+		
 		
 		
 	}
