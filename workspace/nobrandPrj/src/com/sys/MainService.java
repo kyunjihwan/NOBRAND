@@ -31,12 +31,15 @@ public class MainService {
 		switch(input) {
 		case "99" : ms.managerLogin(); break;
 		case "1" : ms.join();  break;
-		case "2" : ms.login();
-		while(true) {
-			boolean isFinish = startMenuService();
-			if(isFinish) {break;}
-			
-		}break;
+		case "2" : 
+		if(ms.login()) {
+			while(true) {
+				boolean isFinish = startMenuService();
+				if(isFinish) {break;}
+				
+			}
+		}
+		break;
 		case "3" : ms.showFindMemberId(); break;
 		case "4" : ms.showFindMemberPwd(); break;		
 		default : System.out.println("잘못 입력하셨습니다.");

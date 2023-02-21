@@ -11,9 +11,7 @@ public class BasketInput {
 
 	
 	
-	public void inputBasket(String pno) throws Exception {
-		
-		Connection conn = JdbcTemplate.getConnection();
+	public void inputBasket(String pno, Connection conn) throws Exception {
 		
 		System.out.println("===== 장바구니 담기 =====");
 		
@@ -24,7 +22,7 @@ public class BasketInput {
 		System.out.print("글자위치 : ");
 		String lpo = sc.nextLine();
 				
-		String sql = "INSERT INTO BASKET(BASKET_NO, PROD_NO, LETTER, LETTER_POTION) VALUES (SEQ_BAKSET_NO.NEXTVAL, ?, ?, ?) ";
+		String sql = "INSERT INTO BASKET(BASKET_NO, PROD_NO, BASKET_DATE, LETTER, LETTER_POTION) VALUES (SEQ_BASKET_NO.NEXTVAL, ?, SYSDATE, ?, ?) ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, pno);
 		pstmt.setString(2, ltr);
@@ -38,7 +36,6 @@ public class BasketInput {
 			System.out.println("장바구니 담기 실패");
 		}
 		
-		conn.close();
 	}
 	
 }

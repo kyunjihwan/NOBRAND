@@ -43,10 +43,10 @@ public class MemberService {
 	}
 	
 	//로그인
-	public void login() throws Exception {
+	public boolean login() throws Exception {
 		//유저 데이터 입력받기
 		MemberData data = mi.login();
-		
+		boolean isFinish = true;
 		//select
 		Connection conn = JdbcTemplate.getConnection();
 		String sql = "SELECT MEMBER_ID, MEMBER_PWD, MEMBER_NICK, MEMBER_NO FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ? AND WITHDRAWAL_YN = 'N'";
@@ -66,16 +66,18 @@ public class MemberService {
 			Main.loginMemberNick = nick;
 		}else {
 			System.out.println("로그인 실패");
+			isFinish = false;
 		}
 		
 		conn.close();
+		return isFinish;
 	}
 	
 	//관리자계정로그인
-	public void managerLogin() throws Exception {
+	public boolean managerLogin() throws Exception {
 		//유저 데이터 입력받기
 		MemberData data = mi.managerLogin();
-		
+		boolean isFinish = true;
 		//select
 		Connection conn = JdbcTemplate.getConnection();
 		String sql = "SELECT MANGER_ID, MANGER_PWD, MANGER_NICK FROM MANAGER WHERE MANGER_ID = ? AND MANGER_PWD = ?";
@@ -92,9 +94,12 @@ public class MemberService {
 			Main.loginManagerNick = nick;
 		}else {
 			System.out.println("로그인 실패");
+			isFinish = false;
 		}
 		
 		conn.close();
+		
+		return isFinish;
 	}
 
 	
@@ -182,6 +187,7 @@ public class MemberService {
 			System.out.println("로그인 한 유저만 글쓰기가 가능합니다.");
 			return;
 		}
+		String proNum1 = proNum;
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
@@ -190,7 +196,7 @@ public class MemberService {
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
-		pstmt.setString(2, proNum);
+		pstmt.setString(2, proNum1);
 		int result = pstmt.executeUpdate();
 		
 		//결과에 따른 처리

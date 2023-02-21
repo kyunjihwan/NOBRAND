@@ -69,7 +69,7 @@ public class ProductShow {
 		}
 		
 		switch(choiceNum) {
-		case "1" : bi.inputBasket(buyProduct(prodName, conn)); break;
+		case "1" : bi.inputBasket(buyProduct(prodName, conn), conn); break;
 		case "2" : ms.insertGreat(findProduct(prodName, conn)); break;
 		}
 		
@@ -106,20 +106,17 @@ public class ProductShow {
 	
 	public String buyProduct(String proName, Connection conn) throws Exception {
 		
-		System.out.print("사이즈 선택 : ");
-		String proSize = Main.SC.nextLine();
-		String sql = "SELECT PROD_NO FROM PRODUCT P JOIN MAGNITUDE M ON P.SIZE_NO = M.SIZE_NO WHERE PROD_NAME = ? AND SIZE_NAME = ?";
+		System.out.print("사이즈 선택(1. S / 2. M / 3. L / 4. XL) : ");
+		int proSize = Main.SC.nextInt();
+		Main.SC.nextLine();
+		String sql = "SELECT PROD_NO FROM PRODUCT P JOIN MAGNITUDE M ON P.SIZE_NO = M.SIZE_NO WHERE PROD_NAME = ? AND P.SIZE_NO = ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, proName);
-		pstmt.setString(2, proSize);
+		pstmt.setInt(2, proSize);
 		ResultSet rs = pstmt.executeQuery();
 		
-		System.out.println(proName);
-		System.out.println(proSize);
-		System.out.println(rs.next());
-		
+		rs.next();
 		String proNum = rs.getString("PROD_NO");
-		System.out.println(proNum);
 		
 		return proNum;
 	};
