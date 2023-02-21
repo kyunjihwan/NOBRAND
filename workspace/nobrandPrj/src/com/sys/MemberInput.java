@@ -35,10 +35,20 @@ public class MemberInput {
 	
 	//로그인 입력받기
 	public MemberData login() {
-		System.out.println("회원로그인");
-		System.out.print("아이디 : ");
+		System.out.println();
+		System.out.println();
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println();
+		System.out.println();
+		System.out.println("                           로그인");
+		System.out.println();
+		System.out.print("                       아이디 >> ");
 		String memberId = Main.SC.nextLine();
-		System.out.print("비밀번호 : ");
+		System.out.print("                      비밀번호 >> ");
 		String memberPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -49,10 +59,20 @@ public class MemberInput {
 	
 	//관리자로그인 입력받기
 	public MemberData managerLogin() {
-		System.out.println("관리자로그인");
-		System.out.print("아이디 : ");
+		System.out.println();
+		System.out.println();
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println();
+		System.out.println();
+		System.out.println("                         관리자 로그인");
+		System.out.println();
+		System.out.print("                       아이디 >> ");
 		String managerId = Main.SC.nextLine();
-		System.out.print("비밀번호 : ");
+		System.out.print("                      비밀번호 >> ");
 		String managerPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();

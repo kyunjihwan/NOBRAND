@@ -62,7 +62,8 @@ public class MemberService {
 			String mno = rs.getString("MEMBER_NO");
 			Main.loginMemberNo = mno;
 			String nick = rs.getString("MEMBER_NICK");
-			System.out.println(nick + " 님 환영합니다.");
+			System.out.println();
+			System.out.println("                    * " + nick + " 님 환영합니다 *");
 			Main.loginMemberNick = nick;
 		}else {
 			System.out.println("로그인 실패");
@@ -90,7 +91,8 @@ public class MemberService {
 		//결과집합에서 데이터 꺼내기
 		if(rs.next()) {
 			String nick = rs.getString("MANGER_NICK");
-			System.out.println(nick + " 님 환영합니다.");
+			System.out.println();
+			System.out.println("                   " + nick + " 님 환영합니다.");
 			Main.loginManagerNick = nick;
 		}else {
 			System.out.println("로그인 실패");

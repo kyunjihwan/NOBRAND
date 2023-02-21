@@ -15,15 +15,16 @@ public class ManagerEvent {
 		
 		System.out.println("===== 광고 목록 =====");
 		
-		String sql = "SELECT E_TITLE, E_CONTENT FROM EVENT";
+		String sql = "SELECT E_NO, E_TITLE, E_CONTENT FROM EVENT";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next()) {
+			String eventNum = rs.getString("E_NO");
 			String eventName = rs.getString("E_TITLE");
 			String eventContent = rs.getString("E_CONTENT");
 			
-			System.out.println(eventName + " | " + eventContent);
+			System.out.println(eventNum + "| " + eventName + " | " + eventContent);
 		}
 		
 		conn.close();
@@ -62,8 +63,12 @@ public class ManagerEvent {
 		
 		System.out.println("===== 광고 제거 =====");
 		showEventList();
-		System.out.print("광고 제거 이름 : ");
+		System.out.print("광고 제거(9. 뒤로가기) : ");
 		String eventName = Main.SC.nextLine();
+		
+		if(eventName.equals("9")){
+			return ;
+		}
 		
 		String sql = "DELETE FROM EVENT WHERE E_TITLE = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -77,6 +82,22 @@ public class ManagerEvent {
 		}
 		
 		conn.close();
+	}
+	
+	public String showEventBoard() throws Exception {
+		Connection conn = JdbcTemplate.getConnection();
+		
+		String sql = "SELECT E_CONTENT FROM EVENT ORDER BY dbms_random.value";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		String eventContent = rs.getString("E_CONTENT");
+		
+		conn.close();
+		
+		return eventContent;
+		
 	}
 	
 }

@@ -15,8 +15,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		MainService ms = new MainService();
-		System.out.println("==========");
-
 		//비니지스 로직
 		while(true) {
 			boolean isFinish = ms.startService();
