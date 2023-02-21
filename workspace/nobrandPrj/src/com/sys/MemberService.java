@@ -175,7 +175,7 @@ public class MemberService {
 		conn.close();
 	}
 	//좋아요 입력
-	public void insertGreat() throws Exception {
+	public void insertGreat(String proNum) throws Exception {
 		
 		//로그인 여부 검사
 		if(Main.loginMemberNick == null) {
@@ -183,17 +183,14 @@ public class MemberService {
 			return;
 		}
 		
-		//유저 데이터 입력받기
-		MemberData data = mi.insertGreat();
-		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "INSERT INTO GREAT (MEMBER_NO, PROD_NO) VALUES (?, ?)"; 
+		String sql = "INSERT INTO GREAT (MEMBER_NO, PRODUCT_NO) VALUES (?, ?)"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
-		pstmt.setString(2, data.getProductNo());
+		pstmt.setString(2, proNum);
 		int result = pstmt.executeUpdate();
 		
 		//결과에 따른 처리
@@ -226,7 +223,7 @@ public class MemberService {
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "SELECT P.PROD_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PROD_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
+		String sql = "SELECT P.PROD_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PRODUCT_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -261,9 +258,13 @@ public class MemberService {
 		//유저 데이터 입력받기
 		MemberData data = mi.deleteGreat();
 		
+		if(data.getProductNo().equals("9")) {
+			return ;
+		}
+		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "DELETE FROM GREAT WHERE MEMBER_NO = ? AND PROD_NO = ?"; 
+		String sql = "DELETE FROM GREAT WHERE MEMBER_NO = ? AND PRODUCT_NO = ?"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);

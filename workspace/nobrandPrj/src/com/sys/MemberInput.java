@@ -112,7 +112,7 @@ public class MemberInput {
 	//좋아요 삭제
 	public MemberData deleteGreat() {
 		
-		System.out.println("삭제할 상품이 없을시 0을 입력하세요");
+		System.out.println("삭제할 상품이 없을시 9을 입력하세요");
 		System.out.print("삭제할 상품번호 : ");
 		String productNo = Main.SC.nextLine();
 		

@@ -1,10 +1,14 @@
 package com.sys;
 
+import com.kjh.product.ProductService;
+import com.ljh.inquirycenter.InquiryService;
 import com.nobrand.main.Main;
 
 public class MainService {
 	
 	private MemberService ms = new MemberService();
+	private InquiryService is = new InquiryService();
+	private ProductService ps = new ProductService();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
@@ -26,8 +30,13 @@ public class MainService {
 	private void processService(String input) throws Exception {
 		switch(input) {
 		case "99" : ms.managerLogin(); break;
-		case "1" : ms.join(); startMenuService(); break;
-		case "2" : ms.login(); break;
+		case "1" : ms.join();  break;
+		case "2" : ms.login();
+		while(true) {
+			boolean isFinish = startMenuService();
+			if(isFinish) {break;}
+			
+		}break;
 		case "3" : ms.showFindMemberId(); break;
 		case "4" : ms.showFindMemberPwd(); break;		
 		default : System.out.println("잘못 입력하셨습니다.");
@@ -43,7 +52,7 @@ public class MainService {
 		
 	}
 	
-	private boolean startMenuService() {
+	private boolean startMenuService() throws Exception {
 		
 		showMenuService();
 		
@@ -55,10 +64,10 @@ public class MainService {
 		
 		switch(input) {
 		case "1" : break;
-		case "2" : break;
+		case "2" : ms.Great(); break;
 		case "3" : break;
-		case "4" : break;
-		case "5" : break;
+		case "4" : ps.showProduct(); break;
+		case "5" : is.inquiry(); break;
 		default : System.out.println("잘못 입력했습니다."); 
 		}
 		
@@ -78,30 +87,6 @@ public class MainService {
 	}
 
 }//class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
