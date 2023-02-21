@@ -1,5 +1,6 @@
 package com.sys;
 
+import com.kjh.manager.ManagerEvent;
 import com.kjh.manager.ManagerService;
 import com.kjh.product.ProductService;
 import com.ksk.basketlist.BasketlistShow;
@@ -15,12 +16,14 @@ public class MainService {
 	private ProductService ps = new ProductService();
 	private ManagerService as = new ManagerService();
 	BasketlistShow bs = new BasketlistShow();
+	ManagerEvent me = new ManagerEvent();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
 		showMenu();
 		
 		//입력받기
+		System.out.print("                        입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if("9".equals(input)) {
@@ -59,11 +62,22 @@ public class MainService {
 	}
 	
 	private void showMenu() {
-		System.out.println("1. 회원가입");
-		System.out.println("2. 로그인");
-		System.out.println("3. 아이디 찾기");
-		System.out.println("4. 비번 찾기");
-		System.out.println("9. 종료");
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println();
+		System.out.println();
+		System.out.println("                         1. 회원가입");
+		System.out.println("                         2. 로그인");
+		System.out.println("                         3. 아이디 찾기");
+		System.out.println("                         4. 비번 찾기");
+		System.out.println("                         9. 종료");
+		System.out.println();
 		
 	}
 	
@@ -71,6 +85,7 @@ public class MainService {
 		
 		showMenuService();
 		
+		System.out.print("                        입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if("9".equals(input)) {
@@ -90,14 +105,18 @@ public class MainService {
 		
 	}
 	
-	private void showMenuService() {
-
-		System.out.println("1. 마이페이지");
-		System.out.println("2. 좋아요");
-		System.out.println("3. 장바구니");
-		System.out.println("4. 쇼핑페이지");
-		System.out.println("5. 고객문의센터");
-		System.out.println("9. 뒤로가기");
+	private void showMenuService() throws Exception {
+		
+		System.out.println("         --------------------------------------------         ");
+		System.out.println("                           " + me.showEventBoard());
+		System.out.println("         --------------------------------------------         ");
+		System.out.println("                         1. 마이페이지");
+		System.out.println("                         2. 좋아요");
+		System.out.println("                         3. 장바구니");
+		System.out.println("                         4. 쇼핑페이지");
+		System.out.println("                         5. 고객문의센터");
+		System.out.println("                         9. 뒤로가기");
+		System.out.println();
 		
 	}
 	

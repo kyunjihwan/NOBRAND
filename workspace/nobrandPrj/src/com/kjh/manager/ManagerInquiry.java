@@ -15,7 +15,7 @@ public class ManagerInquiry {
 	InquiryShow is = new InquiryShow();
 
 	
-	public void insertInquiryAns() throws Exception {
+	public void insertInquiryAns(String no) throws Exception {
 		
 		
 		Connection conn = JdbcTemplate.getConnection();
@@ -25,7 +25,7 @@ public class ManagerInquiry {
 		String sql = "UPDATE INQUIRYCENTER SET INQ_ANSWER = ?, MANAGER_NO = '1' WHERE INQ_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, data.getInquiryContent());
-		pstmt.setString(2, data.getInquiryNo());
+		pstmt.setString(2, no);
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
@@ -48,6 +48,10 @@ public class ManagerInquiry {
 		Connection conn = JdbcTemplate.getConnection();
 		 
 		String inqNum = mii.removeInquiryAns();
+		
+		if(inqNum.equals("9")) {
+			return ;
+		}
 		
 		String sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -90,7 +94,7 @@ public class ManagerInquiry {
 					System.out.print("\n상세조회 할 글의 번호를 입력하세요(9.뒤로가기) : ");
 					no = Main.SC.nextLine();
 					conn = JdbcTemplate.getConnection();
-					String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
+					String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ? AND INQ_DEL_YN = 'N'";
 					PreparedStatement pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, no);
 					ResultSet rs = pstmt.executeQuery();
@@ -152,7 +156,18 @@ public class ManagerInquiry {
 		}
 		System.out.println("==================================================");
 		
+		System.out.println("1. 답변 달기");
+		System.out.println("9. 뒤로 가기");
+		String choice = Main.SC.nextLine();
 		
+		if(choice.equals("9")) {
+			return ;
+		}
+		
+		switch(choice) {
+		case "1" : insertInquiryAns(no); break;
+		
+		}
 		
 		rs.close();
 		conn.close();

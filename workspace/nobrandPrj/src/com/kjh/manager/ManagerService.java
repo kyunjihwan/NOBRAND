@@ -33,7 +33,10 @@ public class ManagerService {
 				boolean isFinish = startManagerInquiry();
 				if(isFinish) {break;}
 			} break;
-		case "3" : break;
+		case "3" : while(true) {
+			boolean isFinish = startManagerEvent();
+			if(isFinish) {break;}
+		} break;
 		default : System.out.println("잘못입력했습니다"); break;
 		}
 		
@@ -46,6 +49,29 @@ public class ManagerService {
 		System.out.println("1. 상품 관련");
 		System.out.println("2. 고객문의센터");
 		System.out.println("3. 이벤트");
+		System.out.println("9. 뒤로가기");
+	}
+	
+	private boolean startManagerEvent() throws Exception {
+		showManagerEvent();
+		
+		String input = Main.SC.nextLine();
+		
+		if(input.equals("9")) {
+			return true;
+		}
+		
+		switch(input) {
+		case "1" : me.insertEvent(); break;
+		case "2" : me.removeEvent(); break;
+		}
+		
+		return false;
+	}
+	
+	private void showManagerEvent() {
+		System.out.println("1. 광고 등록");
+		System.out.println("2. 광고 삭제");
 		System.out.println("9. 뒤로가기");
 	}
 	
