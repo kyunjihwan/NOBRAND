@@ -14,8 +14,9 @@ public class Pay {
 		PayCancle pc = new PayCancle();
 
 		System.out.println("사용하실 기능을 선택해주세요");
-		System.out.println("1. 상품결제");
-		System.out.println("2. 결제취소");
+		System.out.println("1. 결제상품목록");
+		System.out.println("2. 상품결제");
+		System.out.println("3. 결제취소");
 		// System.out.println("*. 주문시스템으로 돌아가기");
 		System.out.println("0. 시스템 종료");
 		int i = Main.SC.nextInt();
@@ -23,9 +24,12 @@ public class Pay {
 		while (true) {
 			switch (i) {
 			case 1:
-				pay();
+				payShow();
 				break;
 			case 2:
+				pay();
+				break;
+			case 3:
 				pc.payCancleService();
 				break;
 			case 0:
@@ -39,20 +43,50 @@ public class Pay {
 		}
 	}
 
+	// 결제 상품 보여주기
+	public void payShow() throws Exception {
+		
+		System.out.println("주문한 상품");
+		String sql = "SELECT P.PAY_NO, PROD_NAME, PRICE, COLOR_NAME, PROD_CONTENT, PAY_COUNT_NO FROM COLOR C JOIN PRODUCT P ON P.COLOR_NO = C.COLOR_NO JOIN BASKET B ON P.PROD_NO = B.PROD_NO JOIN BASKETLIST BL ON B.BASKET_NO = BL.BASKET_NO JOIN ORDER_PRODUCT OP ON OP.BASKETLIST_NO = BL.BASKETLIST_NO JOIN PAY P ON OP.ORD_NO = P.ORDER_NO WHERE PAY_YN = 'Y'";
+
+		Connection conn = JdbcTemplate.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			String payNo = rs.getString("PAY_NO");
+			String prodName = rs.getString("PROD_NAME");
+			String price = rs.getString("PRICE");
+			String prodContent = rs.getString("PROD_CONTENT");
+
+			System.out.println(payNo + "|" + prodName + "|" + price + "|" + prodContent);
+		
+		}
+		
+		System.out.print("결제하시겠습니까?(y/n) : ");
+		String yn = Main.SC.nextLine();
+		
+		if(yn.equals("y") || yn.equals("Y")) {
+			pay();
+		}
+		else if(yn.equals("n") || yn.equals("N")) {
+			System.out.println("시스템 종료");
+		}else {
+			System.out.println("잘못된 입력입니다.");
+		}
+		
+	}
+
 	// 결제
 	public void pay() throws Exception {
 
 		System.out.println("주문한 상품");
 
-		// 이거 세경이 형이 만들어둔 상품 가져오면 됨
-		// 세경's product
-		
 		// 결제수단
 		payType();
 
 		// 결제 상품 내역
 		payProduct();
-
 
 	}
 
@@ -76,46 +110,26 @@ public class Pay {
 		String pt = Main.SC.nextLine();
 
 		if (pt.equals("1")) {
-			System.out.println("신용카드로 결제합니다.");
+			System.out.println("계좌이체로 결제합니다.");
 			payYn();
 		} else if (pt.equals("2")) {
+			System.out.println("카드로 결제합니다.");
 			payYn();
 		} else {
 			System.out.println("사용할 수 없는 결제 수단입니다.");
 		}
-
-		conn.close();
 
 	}
 
 	// 결제상품 나열
 	public void payProduct() throws Exception {
 
-		System.out.println("결제한 상품");
-		String sql = "SELECT PAY_NO, PROD_NAME, PRICE, PROD_CONTENT\r\n" + "FROM PRODUCT P\r\n"
-				+ "JOIN BASKET B ON P.PROD_NO = B.PROD_NO\r\n" + "JOIN BASKETLIST BL ON B.BASKET_NO = BL.BASKET_NO\r\n"
-				+ "JOIN ORDER_PRODUCT OP ON OP.BASKETLIST_NO = BL.BASKETLIST_NO\r\n"
-				+ "JOIN PAY P ON OP.ORD_NO = P.ORDER_NO " + "WHERE P.PAY_YN = 'Y'";
-
-		Connection conn = JdbcTemplate.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-
-		while (rs.next()) {
-			String payNo = rs.getString("PAY_NO");
-			String prodName = rs.getString("PROD_NAME");
-			String price = rs.getString("PRICE");
-			String prodContent = rs.getString("PROD_CONTENT");
-
-			System.out.println(payNo + "|" + prodName + "|" + price + "|" + prodContent);
-		}
-
 	}
 
 	// 상품 결제상태 바꾸기
 	public void payYn() throws Exception {
-
-		String sql = "UPDATE PAY SET PAY_YN = 'Y' WHERE PAY_YN = 'N'";
+		
+		String sql = "UPDATE PAY SET PAY_YN = 'Y' WHERE PAY_NO = ?";
 		Connection conn = JdbcTemplate.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		int result = pstmt.executeUpdate();
@@ -123,7 +137,6 @@ public class Pay {
 			System.out.println("결제가 완료되었습니다.");
 		}
 
-		conn.close();
 	}
 
 }
