@@ -13,12 +13,12 @@ public class InquiryInput {
 	
 	public InquiryData writeBoardInput() throws Exception {
 		System.out.print("\n제목(뒤로가기:9) : ");
-		String title = Main.SC.next();
+		String title = Main.SC.nextLine();
 		if(title.equals("9")) {
 			System.out.println("작성 취소");
 			is.startService();
 		}
-		Main.SC.nextLine();
+//		Main.SC.nextLine();
 		System.out.print("내용(뒤로가기:9) : ");
 		String content = Main.SC.nextLine();
 		if(content.equals("9")) {
