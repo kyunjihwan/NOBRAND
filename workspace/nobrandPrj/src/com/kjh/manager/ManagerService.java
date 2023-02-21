@@ -9,6 +9,8 @@ public class ManagerService {
 	ManagerKind mk = new ManagerKind();
 	ManagerInquiry mi = new ManagerInquiry();
 	ManagerEvent me = new ManagerEvent();
+	InquiryShow is = new InquiryShow();
+	
 	public boolean startManagerMenu() throws Exception {
 		
 		showManagerMenu();
@@ -84,7 +86,7 @@ public class ManagerService {
 		}
 		
 		switch(input) {
-		case "1" : mi.insertInquiryAns(); break;
+		case "1" : mi.showBoardList(); break;
 		case "2" : mi.removeInquiry(); break;
 		}
 		
