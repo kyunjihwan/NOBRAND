@@ -42,7 +42,6 @@ public class PayCancle {
 				pstmt.setString(1, cancleReason);
 				int result = pstmt.executeUpdate();
 				if(result ==1) {
-					System.out.println("취소 사유가 작성되었습니다.");
 				}else {
 					System.out.println("취소 사유 작성 실패..");
 				}
