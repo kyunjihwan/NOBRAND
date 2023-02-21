@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
-import com.main.Main;
+import com.nobrand.main.Main;
 import com.sys.MemberData;
 
 public class InquiryShow {
@@ -23,11 +23,11 @@ public class InquiryShow {
 		InquiryData data = ip.writeBoardInput();
 		MemberData member = new MemberData();
 		conn = JdbcTemplate.getConnection();
-		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL,'1',?,?,SYSDATE)";
+		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL, ? , ? , ? , SYSDATE)";
 		pstmt = conn.prepareStatement(sql);
-//		pstmt.setString(1, member.getMemberNo());
-		pstmt.setString(1, data.getTitle());
-		pstmt.setString(2, data.getContent());
+		pstmt.setString(1, Main.loginMemberNo);
+		pstmt.setString(2, data.getTitle());
+		pstmt.setString(3, data.getContent());
 		result = pstmt.executeUpdate();
 		if(result == 1) {
 			System.out.println("작성 완료");

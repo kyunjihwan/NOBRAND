@@ -11,15 +11,14 @@ public class BasketInput {
 
 	
 	
-	public void inputBasket() throws Exception {
+	public void inputBasket(String pno) throws Exception {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
 		System.out.println("===== 장바구니 담기 =====");
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.print("상품 번호 : ");
-		String pno = sc.nextLine();
+ 
 		System.out.print("글자 : ");
 		String ltr = sc.nextLine();
 		System.out.print("글자위치 : ");
