@@ -6,12 +6,17 @@ import java.sql.PreparedStatement;
 import com.jdbc.JdbcTemplate;
 import com.kjh.Main;
 import com.kjh.inquiry.InquiryData;
+import com.ljh.inquirycenter.InquiryShow;
 
 public class ManagerInquiry {
 
 	ManagerInquiryInput mii = new ManagerInquiryInput();
+	InquiryShow is = new InquiryShow();
+
 	
 	public void insertInquiryAns() throws Exception {
+		
+		is.showBoardList();
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
@@ -34,7 +39,9 @@ public class ManagerInquiry {
 		
 	}
 	
-	public void removeInquiryAns() throws Exception {
+	public void removeInquiry() throws Exception {
+		
+		is.showBoardList();
 		
 		Connection conn = JdbcTemplate.getConnection();
 		

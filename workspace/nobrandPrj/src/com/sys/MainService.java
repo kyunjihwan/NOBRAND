@@ -1,5 +1,6 @@
 package com.sys;
 
+import com.kjh.manager.ManagerService;
 import com.kjh.product.ProductService;
 import com.ljh.inquirycenter.InquiryService;
 import com.nobrand.main.Main;
@@ -9,6 +10,7 @@ public class MainService {
 	private MemberService ms = new MemberService();
 	private InquiryService is = new InquiryService();
 	private ProductService ps = new ProductService();
+	private ManagerService as = new ManagerService();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
@@ -29,7 +31,13 @@ public class MainService {
 	
 	private void processService(String input) throws Exception {
 		switch(input) {
-		case "99" : ms.managerLogin(); break;
+		case "99" : 
+		if(ms.managerLogin()) {
+			while(true) {
+				boolean isFinish = as.startManagerMenu();
+				if(isFinish) {break;}
+			}
+		}; break;
 		case "1" : ms.join();  break;
 		case "2" : 
 		if(ms.login()) {

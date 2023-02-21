@@ -10,7 +10,7 @@ public class ManagerKindInput {
 	// 카테고리 등록 정보 입력
 	public String insertKind() {
 		System.out.println("===== 카테고리 등록 =====");
-		System.out.println("새로운 카테고리 등록 이름2(2글자) : ");
+		System.out.println("새로운 카테고리 등록 이름(2글자) : ");
 		String kindName = Main.SC.nextLine();
 		
 		return kindName;
