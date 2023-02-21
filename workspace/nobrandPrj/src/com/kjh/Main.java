@@ -26,7 +26,7 @@ public class Main {
 //		ms.insertInquiryAns();
 //		ms.showEventList();
 //		ms.insertEvent();
-		ms.removeEvent();
+//		ms.removeEvent();
 //		ps.showProduct();
 		
 	}

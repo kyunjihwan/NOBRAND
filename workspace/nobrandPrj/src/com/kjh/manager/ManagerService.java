@@ -1,5 +1,7 @@
 package com.kjh.manager;
 
+import com.nobrand.main.Main;
+
 public class ManagerService {
 
 	ManagerProduct mp = new ManagerProduct();
@@ -8,41 +10,23 @@ public class ManagerService {
 	ManagerEvent me = new ManagerEvent();
 	
 	
-	public void insertProduct() throws Exception {
+	public void showManagerMenu() {
+		System.out.println("1. 상품 관련");
+		System.out.println("2. 고객문의센터");
+		System.out.println("3. 이벤트");
+		System.out.println("9. 뒤로가기");
+	}
+	
+	public void startManagerMenu() {
+		showManagerMenu();
 		
-		mp.insertProduct();
+		String input = Main.SC.nextLine();
+		
+		if(input.equals("9")) {
+		}
+		
 	}
 	
-	public void removeProduct() throws Exception {
-		mp.removeProduct();
-	}
 	
-	public void insertKind() throws Exception {
-		mk.insertKind();
-	}
 	
-	public void removeKind() throws Exception {
-		mk.removeKind();
-	}
-	
-	public void insertInquiryAns() throws Exception {
-		mi.insertInquiryAns();
-	}
-	
-	public void removeInquiryAns() throws Exception {
-		mi.removeInquiryAns();
-	}
-	
-	public void showEventList() throws Exception {
-		me.showEventList();
-	}
-	
-	public void insertEvent() throws Exception {
-		me.insertEvent();
-	}
-	
-	public void removeEvent() throws Exception {
-		me.removeEvent();
-	}
-	
-}
+} // class
