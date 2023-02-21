@@ -2,6 +2,7 @@ package com.sys;
 
 import com.kjh.manager.ManagerService;
 import com.kjh.product.ProductService;
+import com.ksk.basketlist.BasketlistShow;
 import com.ljh.inquirycenter.InquiryService;
 import com.nobrand.main.Main;
 
@@ -13,6 +14,7 @@ public class MainService {
 	private InquiryService is = new InquiryService();
 	private ProductService ps = new ProductService();
 	private ManagerService as = new ManagerService();
+	BasketlistShow bs = new BasketlistShow();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
@@ -78,7 +80,7 @@ public class MainService {
 		switch(input) {
 		case "1" : startMyPageService(); break;
 		case "2" : ms.Great(); break;
-		case "3" : break;
+		case "3" : bs.showBasketlist(); break;
 		case "4" : ps.showProduct(); break;
 		case "5" : is.inquiry(); break;
 		default : System.out.println("잘못 입력했습니다."); 
