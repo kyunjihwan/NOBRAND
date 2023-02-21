@@ -60,18 +60,6 @@ public class CouponLoad {
 			
 		}
 		
-		System.out.print("쿠폰을 사용하시겠습니까?(y/n) : ");
-		String s = Main.SC.nextLine();
-		
-			
-		if(s.equals("y") || s.equals("Y")) {
-			cu.couponUse();
-		}else if(s.equals("n") || s.equals("N")) {
-			System.out.println("사용을 종료합니다.");
-		}else {
-			System.out.println("잘못된 입력입니다.");
-		}
-		
 	}
 
 }

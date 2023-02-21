@@ -15,7 +15,7 @@ public class PayCancle {
 		p.payProduct();
 		
 		// 환불 상품 선택하기
-		deletePay();
+		payCancel();
 		
 		
 	}
@@ -26,13 +26,12 @@ public class PayCancle {
 
 
 		// 사유를 고르는게 아니라 직접 작성은 어때?
-		System.out.print("환불하시겠습니까?(1.y / 2.n) : ");
-		int yn = Main.SC.nextInt();
-		Main.SC.nextLine();
+		System.out.print("환불하시겠습니까?(y/n) : ");
+		String yn = Main.SC.nextLine();
 
 		while (true) {
 
-			if (yn == 1) {
+			if (yn.equals("y") || yn.equals("Y")) {
 
 				System.out.print("취소 사유를 작성해주세요 : ");
 				String cancleReason = Main.SC.nextLine();
@@ -47,7 +46,7 @@ public class PayCancle {
 				}
 				
 				break;
-			}else if (yn == 2) {
+			}else if (yn.equals("n") || yn.equals("N")) {
 				System.out.println("환불을 하지 않습니다.");
 				break;
 			}else {
@@ -61,14 +60,14 @@ public class PayCancle {
 
 	}
 
-	public void deletePay() throws Exception {
+	public void payCancel() throws Exception {
 
-		System.out.print("삭제할 상품번호 : ");
+		System.out.print("환불할 상품번호 : ");
 		String dp = Main.SC.nextLine();
 
 		payCancleReason();
 		
-		String sql = "DELETE FROM PAY WHERE PAY_NO = ?";
+		String sql = "UPDATE PAY SET PAY_YN = 'N' WHERE PAY_NO = ?";
 		Connection conn = JdbcTemplate.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, dp);
