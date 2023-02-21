@@ -7,6 +7,8 @@ import com.nobrand.main.Main;
 
 public class MainService {
 	
+	
+	private MyPage mp = new MyPage();
 	private MemberService ms = new MemberService();
 	private InquiryService is = new InquiryService();
 	private ProductService ps = new ProductService();
@@ -74,7 +76,7 @@ public class MainService {
 		}
 		
 		switch(input) {
-		case "1" : break;
+		case "1" : startMyPageService(); break;
 		case "2" : ms.Great(); break;
 		case "3" : break;
 		case "4" : ps.showProduct(); break;
@@ -93,6 +95,35 @@ public class MainService {
 		System.out.println("3. 장바구니");
 		System.out.println("4. 쇼핑페이지");
 		System.out.println("5. 고객문의센터");
+		System.out.println("9. 뒤로가기");
+		
+	}
+	
+	private boolean startMyPageService() throws Exception {
+		
+		showMyPageService();
+		
+		String input = Main.SC.nextLine();
+		
+		if("9".equals(input)) {
+			return true;
+		}
+		
+		switch(input) {
+		case "1" : mp.showMemberInfo(); break;
+		case "2" : ms.updateMemberInfo(); break;
+		
+		default : System.out.println("잘못 입력했습니다."); 
+		}
+		
+		return false;
+		
+	}
+	
+	private void showMyPageService() {
+
+		System.out.println("1. 회원정보 조회");
+		System.out.println("2. 회원정보 수정");
 		System.out.println("9. 뒤로가기");
 		
 	}
