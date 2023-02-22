@@ -24,9 +24,9 @@ public class ManagerKind {
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
-			System.out.println("카테고리 등록을 성곻했습니다.");
+			System.out.println("                      카테고리 등록됐습니다.");
 		}else {
-			System.out.println("카테고리 등록 실패");
+			System.out.println("                      카테고리 등록 실패....");
 		}
 		
 		conn.close();
@@ -46,9 +46,9 @@ public class ManagerKind {
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
-			System.out.println("카테고리 삭제 성공");
+			System.out.println("                      카테고리 삭제됐습니다.");
 		}else {
-			System.out.println("카테고리 삭제 실패");
+			System.out.println("                      카테고리 삭제 실패....");
 		}
 		
 		conn.close();

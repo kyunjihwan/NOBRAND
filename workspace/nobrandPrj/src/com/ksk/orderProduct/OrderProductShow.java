@@ -13,23 +13,35 @@ public class OrderProductShow {
 	public void productOrder() throws Exception {
 
 		Connection conn = JdbcTemplate.getConnection();
-		System.out.println("===== 주문하기 =====");
+		System.out.println();
 		
 			
-			System.out.println("해당 상품들을 주문하시겠습니까?");
-			System.out.println("1. 주문하기");
-			System.out.println("9. 뒤로가기");
+			System.out.println("                        1. 주문하기");
+			System.out.println("                        9. 뒤로가기");
+			System.out.println();
+			System.out.print("                       입력 >> ");
 			
 			String choiceNum = Main.SC.nextLine();
 			
 			if (choiceNum.equals("1")) {
-				System.out.println("주문할 장바구니 번호를 입력해주세요 : ");
+				System.out.println();
+				System.out.println("           ╔══════════════════════════════════╗");
+				System.out.println("           ║               ORDER              ║ ");
+				System.out.println("           ╚══════════════════════════════════╝");	
+				System.out.println();
+				System.out.println("                        주문할 장바구니 번호(9. 뒤로가기) ");
+				System.out.print("                       입력 >> ");
 				String basketListNum = Main.SC.nextLine();
+				if(basketListNum.equals("9")) {
+					return ;
+				}
 				String[] arr = basketListNum.split(",");
 				
-				System.out.print("배송지주소 : ");
+				System.out.println("                     1. 배송지주소 ");
+				System.out.print("                       입력 >> ");
 				String address = Main.SC.nextLine();
-				System.out.print("연락처 : ");
+				System.out.println("                     2. 연락처  ");
+				System.out.print("                       입력 >> ");
 				String phone = Main.SC.nextLine();
 				for(int i = 0; i < arr.length; i++)
 				{
@@ -43,6 +55,11 @@ public class OrderProductShow {
 					
 					pstmt.executeUpdate();
 				}
+			}else if (choiceNum.equals("9")) {
+				return ;
+			}else {
+				System.out.println("                        잘못 입력하셨습니다.");
+			}
 
 				updateBasket(conn);
 				
@@ -52,11 +69,6 @@ public class OrderProductShow {
 				Pay p = new Pay();
 				p.payShow();
 				
-			}else if (choiceNum.equals("9")) {
-				System.out.println("홈으로 돌아갑니다.");
-			}else {
-				System.out.println("잘못 입력하셨습니다.");
-			}
 
 			
 			

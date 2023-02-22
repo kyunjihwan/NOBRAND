@@ -34,9 +34,9 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("회원가입 실패...");
+			System.out.println("                        회원가입 실패...");
 		}else {
-			System.out.println("회원가입 성공!");
+			System.out.println("                        회원가입 성공!");
 		}
 		
 		//커넥션 정리
@@ -64,7 +64,7 @@ public class MemberService {
 			Main.loginMemberNo = mno;
 			String nick = rs.getString("MEMBER_NICK");
 			System.out.println();
-			System.out.println("                    * " + nick + " 님 환영합니다 *");
+			System.out.println("                   * " + nick + " 님 환영합니다 *");
 			Main.loginMemberNick = nick;
 		}else {
 			System.out.println("로그인 실패");
@@ -123,7 +123,7 @@ public class MemberService {
 		//결과집합에서 데이터 꺼내기
 		if(rs.next()) {
 			String hint = rs.getString("HINT_CONTENT");
-			System.out.println("질문: " + hint);
+			System.out.println("                       질문 : " + hint);
 			
 			
 		}else {
@@ -147,11 +147,12 @@ public class MemberService {
 			
 			
 			String id = rs2.getString("MEMBER_ID");
-			System.out.println("아이디: " + id);
+			System.out.println();
+			System.out.println("                      아이디: " + id);
 			
 			
 		}else {
-			System.out.println("실패");
+			System.out.println("                       실패");
 		}
 		
 		conn.close();
@@ -174,10 +175,11 @@ public class MemberService {
 		//결과집합에서 데이터 꺼내기
 		if(rs.next()) {
 			String PWD = rs.getString("MEMBER_PWD");
-			System.out.println("비밀번호는 " + PWD + "입니다.");
+			System.out.println();
+			System.out.println("                      비밀번호는 " + PWD + "입니다.");
 			
 		}else {
-			System.out.println("실패");
+			System.out.println("                       실패");
 		}
 		
 		conn.close();
@@ -204,9 +206,11 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("좋아요가 되었습니다.");
+			System.out.println("                        *좋아요*");
+			System.out.println();
 		}else {
-			System.out.println("좋아요 실패");
+			System.out.println("                        좋아요 실패");
+			System.out.println();
 		}
 		
 		//커넥션 정리
@@ -215,7 +219,19 @@ public class MemberService {
 
 	public void Great() throws Exception {
 		showGreat();
-		deleteGreat();
+		System.out.println();
+		System.out.println("                        1. 좋아요 삭제");
+		System.out.println("                        9. 뒤로가기");
+		System.out.println();
+		System.out.print("                       입력 >> ");
+		String choice = Main.SC.nextLine();
+		
+		if(choice.equals("9")) {
+			return ; 
+		}
+		switch(choice) {
+		case "1" : deleteGreat();
+		}
 	}
 	
 	
@@ -227,9 +243,11 @@ public class MemberService {
 			System.out.println("로그인 한 유저만 조회가 가능합니다.");
 			return;
 		}
-		
-		
-		
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║               GREAT♥             ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
+		System.out.println();
 		//select
 		Connection conn = JdbcTemplate.getConnection();
 		String sql = "SELECT P.PROD_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PROD_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
@@ -238,7 +256,8 @@ public class MemberService {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
 		ResultSet rs = pstmt.executeQuery();
-		
+		System.out.println("               NO    PROD_NAME      PRICE");
+		System.out.println("               ═════════════════════════════");
 		//결과집합에서 데이터 꺼내기
 		while(rs.next()) {
 			
@@ -246,7 +265,7 @@ public class MemberService {
 			String pname = rs.getString("PROD_NAME");
 			String price = rs.getString("PRICE");
 			
-			System.out.println(pno + " | " + pname + " | " + price);
+			System.out.println("               " + pno + "      " + pname + "          " + price);
 			
 		}
 		
@@ -267,9 +286,6 @@ public class MemberService {
 		//유저 데이터 입력받기
 		MemberData data = mi.deleteGreat();
 		
-		if(data.getProductNo().equals("9")) {
-			return ;
-		}
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
@@ -283,9 +299,9 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("삭제됨");
+			System.out.println("                       *삭제됐습니다*");
 		}else {
-			System.out.println("실패");
+			System.out.println("                       실패");
 		}
 		
 		//커넥션 정리
@@ -298,13 +314,22 @@ public class MemberService {
 			System.out.println("로그인 한 유저만 변경이 가능합니다.");
 			return;
 		}
-		
-		System.out.println("1. 비밀번호 변경 2. 닉네임 변경");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║             EDIT INFO            ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("                        1. 비밀번호 변경");
+		System.out.println("                        2. 닉네임 변경");
+		System.out.println("                        9. 뒤로 가기");
+		System.out.println();
+		System.out.print("                       입력 >> ");
 		String c = Main.SC.nextLine();
 		if(c.equals("1")) {
 			updateMemberPwdInfo();
 		}else if(c.equals("2")) {
 			updateMemberNickInfo();
+		}else if(c.equals("9")) {
+			return ;
 		}
 		
 	}
@@ -329,9 +354,9 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("변경완료");
+			System.out.println("                       *변경완료*");
 		}else {
-			System.out.println("실패");
+			System.out.println("                        실패");
 		}
 		
 		//커넥션 정리
@@ -356,9 +381,9 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("변경완료");
+			System.out.println("                        변경완료");
 		}else {
-			System.out.println("실패");
+			System.out.println("                        실패");
 		}
 		
 		//커넥션 정리

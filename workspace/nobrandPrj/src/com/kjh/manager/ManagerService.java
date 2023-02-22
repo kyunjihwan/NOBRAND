@@ -55,16 +55,22 @@ public class ManagerService {
 	
 	public void showManagerMenu() {
 		
-		System.out.println("                         1. 상품 관련");
-		System.out.println("                         2. 고객문의센터");
-		System.out.println("                         3. 이벤트");
-		System.out.println("                         9. 뒤로가기");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║                                  ║ ");
+		System.out.println("           ║             NO BRAND             ║ ");
+		System.out.println("           ║                                  ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println();
+		System.out.println("                        1. 상품 관련");
+		System.out.println("                        2. 고객문의센터");
+		System.out.println("                        3. 이벤트");
+		System.out.println("                        9. 뒤로가기");
 		System.out.println();
 	}
 	
 	private boolean startManagerEvent() throws Exception {
 		showManagerEvent();
-		
+		System.out.print("                       입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if(input.equals("9")) {
@@ -80,9 +86,15 @@ public class ManagerService {
 	}
 	
 	private void showManagerEvent() {
-		System.out.println("1. 광고 등록");
-		System.out.println("2. 광고 삭제");
-		System.out.println("9. 뒤로가기");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║               EVENT              ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
+		System.out.println();
+		System.out.println("                        1. 광고 등록");
+		System.out.println("                        2. 광고 삭제");
+		System.out.println("                        9. 뒤로가기");
+		System.out.println();
 	}
 	
 	private boolean startMangerProduct() throws Exception {
@@ -108,18 +120,22 @@ public class ManagerService {
 	
 	private void showManagerProduct() {
 		System.out.println();
-		System.out.println("                         1. 상품 등록");
-		System.out.println("                         2. 상품 삭제");
-		System.out.println("                         3. 카테고리 등록");
-		System.out.println("                         4. 카테고리 삭제");
-		System.out.println("                         5. 리뷰 삭제");
-		System.out.println("                         9. 뒤로가기");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║              PRODUCT             ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println();
+		System.out.println("                        1. 상품 등록");
+		System.out.println("                        2. 상품 삭제");
+		System.out.println("                        3. 카테고리 등록");
+		System.out.println("                        4. 카테고리 삭제");
+		System.out.println("                        5. 리뷰 삭제");
+		System.out.println("                        9. 뒤로가기");
 		System.out.println();
 	}
 	
 	private boolean startManagerInquiry() throws Exception {
 		showManagerInquiry();
-		
+		System.out.print("                       입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if(input.equals("9")) {
@@ -135,10 +151,15 @@ public class ManagerService {
 	}
 	
 	private void showManagerInquiry() {
-		System.out.println("====== 고객 답변 ======");
-		System.out.println("1. 고객문의게시글 답변 등록");
-		System.out.println("2. 고객문의게시글 삭제");
-		System.out.println("9. 뒤로가기");
+		System.out.println("");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║         CUSTOMER SERVICE         ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("");
+		System.out.println("                        1. 고객문의게시글 답변 등록");
+		System.out.println("                        2. 고객문의게시글 삭제");
+		System.out.println("                        9. 뒤로가기");
+		System.out.println();
 	}
 	
 	public void deleteReview() throws Exception {
@@ -148,7 +169,8 @@ public class ManagerService {
 		Connection conn = JdbcTemplate.getConnection();
 		String no;
 		while(true) {
-			System.out.print("\n삭제할 글의 번호를 선택하세요(9. 뒤로가기) : ");
+			System.out.println("\n                      삭제할 글 번호(9. 뒤로가기) ");
+			System.out.print("                       입력 >> ");
 			no = Main.SC.nextLine();
 			if("9".equals(no)) {
 				break;
@@ -160,7 +182,7 @@ public class ManagerService {
 			if(rs.next()) {
 				break;
 			}else {
-				System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
+				System.out.println("         해당하는 글이 없습니다. 다시 입력해주세요.");
 			}
 		}
 		
@@ -173,9 +195,9 @@ public class ManagerService {
 		rs.showReviewList();
 		
 		if(result == 1) {
-			System.out.println("\n삭제 완료");
+			System.out.println("\n                         *삭제 완료*");
 		}else {
-			System.out.println("삭제 실패");
+			System.out.println("                          삭제 실패");
 		}
 		conn.close();
 	}

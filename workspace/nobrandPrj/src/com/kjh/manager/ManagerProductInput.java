@@ -12,8 +12,8 @@ public class ManagerProductInput {
 	
 	public ProductData insertProduct(Connection conn) throws Exception {
 		
-		
-		System.out.println("                ========= 상품 등록 =========");
+		System.out.println();
+		System.out.println("                ────────── 상품 등록 ──────────");
 		System.out.println();
 		System.out.println("                       1. 등록상품 이름");
 		System.out.print("                        입력 >> ");
@@ -26,15 +26,15 @@ public class ManagerProductInput {
 		System.out.print("                        입력 >> ");
 		String prodContent = Main.SC.nextLine();
 		pds.showProductKind(conn);
-		System.out.println("                       4. 등록상품 카테고리 선택 : ");
+		System.out.println("                    4. 등록상품 카테고리 선택 : ");
 		System.out.print("                        입력 >> ");
 		String prodKind = Main.SC.nextLine();
 		pds.showProductColor(conn);
-		System.out.println("                       5. 등록상품 컬러를 정하세요 : ");
+		System.out.println("                   5. 등록상품 컬러를 정하세요 : ");
 		System.out.print("                        입력 >> ");
 		String prodColor = Main.SC.nextLine();
 		pds.showProductSize(conn);
-		System.out.println("                       6. 등록상품 사이즈들을 정하세요(,표시로 나눠주세요) : ");
+		System.out.println("              6. 등록상품 사이즈들을 정하세요(,표시로 나눠주세요) : ");
 		System.out.print("                        입력 >> ");
 		String prodSize = Main.SC.nextLine();
 		
@@ -52,8 +52,10 @@ public class ManagerProductInput {
 	
 	public ProductData removeProduct(Connection conn) throws Exception {
 		
-		System.out.println("                ========= 상품 삭제 =========");
+		System.out.println();
+		System.out.println("                ────────── 상품 삭제 ──────────");
 		pds.showProductAll(conn);
+		System.out.println();
 		System.out.println("                       1. 삭제상품 이름");
 		System.out.print("                        입력 >> ");
 		String prodName = Main.SC.nextLine();

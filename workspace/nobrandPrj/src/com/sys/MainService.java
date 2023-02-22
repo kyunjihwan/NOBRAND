@@ -27,7 +27,7 @@ public class MainService {
 		showMenu();
 		
 		//입력받기
-		System.out.print("                        입력 >> ");
+		System.out.print("                       입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if("9".equals(input)) {
@@ -69,18 +69,19 @@ public class MainService {
 		
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
-		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
+		System.out.println(" ██╗   ██╗ ██████╗ ███████╗ ███████╗  ██████╗ ██╗   ██╗██████╗  ");
+		System.out.println(" ████╗ ██║██╔═══██╗██╔═══██╗██╔═══██╗██╔═══██╗████╗ ██║██╔══██╗");
+		System.out.println(" ██║██╗██║██║   ██║███████═╝███████╔╝████████║██╔██╗██║██║  ██║ ");
+		System.out.println(" ██║╚████║██║   ██║██╔═══██╗██╔══██╚╗██╔═══██║██║╚████║██║  ██║");
+		System.out.println(" ██║  ╚██║╚██████╔╝███████╔╝██║  ╚██║██║   ██║██║  ╚██║██████╔╝" );
+		System.out.println(" ╚═╝   ╚═╝ ╚═════╝ ╚══════╝ ╚═╝   ╚═╝╚═╝   ╚═╝╚═╝   ╚═╝╚═════╝  ");
 		System.out.println();
 		System.out.println();
-		System.out.println("                         1. 회원가입");
-		System.out.println("                         2. 로그인");
-		System.out.println("                         3. 아이디 찾기");
-		System.out.println("                         4. 비번 찾기");
-		System.out.println("                         9. 종료");
+		System.out.println("                        1. 회원가입");
+		System.out.println("                        2. 로그인");
+		System.out.println("                        3. 아이디 찾기");
+		System.out.println("                        4. 비번 찾기");
+		System.out.println("                        9. 종료");
 		System.out.println();
 		
 	}
@@ -89,7 +90,7 @@ public class MainService {
 		
 		showMenuService();
 		
-		System.out.print("                        입력 >> ");
+		System.out.print("                       입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if("9".equals(input)) {
@@ -112,16 +113,22 @@ public class MainService {
 	
 	private void showMenuService() throws Exception {
 		
-		System.out.println("      -----------------------------------------------         ");
-		System.out.println(me.showEventBoard());
-		System.out.println("      -----------------------------------------------         ");
-		System.out.println("                         1. 마이페이지");
-		System.out.println("                         2. 좋아요");
-		System.out.println("                         3. 장바구니");
-		System.out.println("                         4. 쇼핑페이지");
-		System.out.println("                         5. 고객문의센터");
-		System.out.println("                         6. 리뷰 게시판");
-		System.out.println("                         9. 뒤로가기");
+		
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║                                  ║ ");
+		System.out.println("           ║             NO BRAND             ║ ");
+		System.out.println("           ║                                  ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("                      ╔═══════════╗         ");
+		System.out.println("                         *" + me.showEventBoard()+ "*");
+		System.out.println("                      ╚═══════════╝         ");
+		System.out.println("                        1. 마이페이지");
+		System.out.println("                        2. 좋아요");
+		System.out.println("                        3. 장바구니");
+		System.out.println("                        4. 쇼핑페이지");
+		System.out.println("                        5. 고객문의센터");
+		System.out.println("                        6. 리뷰 게시판");
+		System.out.println("                        9. 뒤로가기");
 		System.out.println();
 		
 	}
@@ -129,7 +136,8 @@ public class MainService {
 	private boolean startMyPageService() throws Exception {
 		
 		showMyPageService();
-		
+		System.out.println();
+		System.out.print("                       입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if("9".equals(input)) {
@@ -150,11 +158,15 @@ public class MainService {
 	
 	private void showMyPageService() {
 
-		System.out.println("1. 회원정보 조회");
-		System.out.println("2. 회원정보 수정");
-		System.out.println("3. 구매내역");
-		System.out.println("4. 쿠폰함");
-		System.out.println("9. 뒤로가기");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║              MY PAGE             ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("                        1. 회원정보 조회");
+		System.out.println("                        2. 회원정보 수정");
+		System.out.println("                        3. 구매내역");
+		System.out.println("                        4. 쿠폰함");
+		System.out.println("                        9. 뒤로가기");
 		
 	}
 

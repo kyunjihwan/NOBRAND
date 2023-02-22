@@ -14,14 +14,18 @@ public class InquiryService {
 	public boolean startService() throws Exception {
 		while(true) {
 			System.out.println("");
-			System.out.println("                        고객센터");
+			System.out.println("           ╔══════════════════════════════════╗");
+			System.out.println("           ║         CUSTOMER SERVICE         ║ ");
+			System.out.println("           ╚══════════════════════════════════╝");	
 			System.out.println("");
-			System.out.println("                         1. 문의글 작성");
-			System.out.println("                         2. 문의글 삭제");
-			System.out.println("                         3. 문의글 수정");
-			System.out.println("                         4. 문의글 목록 조회");
-			System.out.println("                         9. 뒤로가기");
-			System.out.print("\n                         입력 >> ");
+			System.out.println("                        1. 문의글 작성");
+			System.out.println("                        2. 문의글 삭제");
+			System.out.println("                        3. 문의글 수정");
+			System.out.println("                        4. 문의글 목록 조회");
+			System.out.println("                        9. 뒤로가기");
+			System.out.println();
+			System.out.print("                       입력 >> ");
+
 			
 			String input = Main.SC.nextLine();
 			InquiryShow im = new InquiryShow();
