@@ -52,10 +52,10 @@ public class CouponLoad {
 			Timestamp cpDate = rs.getTimestamp("CP_DATE");
 
 			if (cpPercent == null) {
-				System.out.println(cpNo + " | " + cpName + " | " + cpPrice + "원 | " + cpYn + " | " + cpDate);
+				System.out.println(cpNo + " | " + cpName + " | " + cpPrice + "원" + " | " + cpDate);
 	
 			} else if(cpPrice == null) { 
-				System.out.println(cpNo + " | " + cpName + " | " + cpPercent + "% | " + cpYn + " | " + cpDate);
+				System.out.println(cpNo + " | " + cpName + " | " + cpPercent + "% | " + cpDate);
 			}
 			
 		}

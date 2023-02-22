@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
+
 import com.ksk.basketlist.BasketlistData;
 import com.lhc.Pay;
 import com.nobrand.main.Main;
@@ -13,14 +14,8 @@ import com.sys.MemberData;
 public class OrderProductShow {
 
 	public void productOrder() throws Exception {
-		Connection conn = JdbcTemplate.getConnection();
+
 		System.out.println("===== 주문하기 =====");
-		String sql = "SELECT ORD_NO ,PROD_NAME, OP.BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH\r\n"
-				+ "FROM ORDER_PRODUCT OP \r\n"
-				+ "JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO \r\n"
-				+ "JOIN BASKET B ON  BL.BASKET_NO = B.BASKET_NO\r\n"
-				+ "JOIN PRODUCT P ON P.PROD_NO = B.PROD_NO\r\n"
-				+ "ORDER BY ORD_NO;";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
