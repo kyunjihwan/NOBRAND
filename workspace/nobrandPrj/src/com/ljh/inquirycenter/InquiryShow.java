@@ -37,7 +37,7 @@ public class InquiryShow {
 		conn = JdbcTemplate.getConnection();
 		String sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ? AND MEMBER_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, data.getNo());
+		pstmt.setString(1, data.getNo());
 		pstmt.setString(2, Main.loginMemberNo);
 		int result = pstmt.executeUpdate();
 		if(result == 1) {

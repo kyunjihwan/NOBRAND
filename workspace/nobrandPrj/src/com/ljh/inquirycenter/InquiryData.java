@@ -5,9 +5,9 @@ public class InquiryData {
 	private String id;
 	private String title;
 	private String content;
-	private int no;
+	private String no;
 
-	public InquiryData(String id, String title, String content, int no) {
+	public InquiryData(String id, String title, String content, String no) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -49,11 +49,11 @@ public class InquiryData {
 		this.content = content;
 	}
 
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 }

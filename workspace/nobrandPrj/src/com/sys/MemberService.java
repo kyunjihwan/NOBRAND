@@ -273,7 +273,7 @@ public class MemberService {
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "DELETE FROM GREAT WHERE MEMBER_NO = ? AND PRODUCT_NO = ?"; 
+		String sql = "DELETE FROM GREAT WHERE MEMBER_NO = ? AND PROD_NO = ?"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);

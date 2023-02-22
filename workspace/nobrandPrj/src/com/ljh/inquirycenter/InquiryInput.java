@@ -35,12 +35,12 @@ public class InquiryInput {
 		InquiryData data = new InquiryData();
 		while(true) {
 			System.out.print("\n삭제할 글의 번호를 입력하세요 : ");
-			int no = Main.SC.nextInt();
+			String no = Main.SC.nextLine();
 			data.setNo(no);
 			conn = JdbcTemplate.getConnection();
 			String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,no);
+			pstmt.setString(1,no);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				break;
