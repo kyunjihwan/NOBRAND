@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.kjh.Main;
+import com.jdbc.JdbcTemplate;
 import com.ksk.basketlist.BasketlistData;
+import com.lhc.Pay;
+import com.nobrand.main.Main;
 import com.sys.MemberData;
 
 public class OrderProductShow {
 
-	public void productOrder(Connection conn) throws Exception {
+	public void productOrder() throws Exception {
+		Connection conn = JdbcTemplate.getConnection();
 		System.out.println("===== 주문하기 =====");
 		String sql = "SELECT ORD_NO ,PROD_NAME, OP.BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH\r\n"
 				+ "FROM ORDER_PRODUCT OP \r\n"
@@ -44,28 +47,42 @@ public class OrderProductShow {
 			int choiceNum = Main.SC.nextInt();
 			
 			if (choiceNum == 1) {
+				System.out.println("결제할 장바구니 번호를 입력해주세요 : ");
+				Connection conn2 = JdbcTemplate.getConnection();
+				String basketListNum = Main.SC.nextLine();
+				String[] arr = basketListNum.split(",");
+				for(int i = 0; i < arr.length; i++)
+				{
+					String sql2 = "INSERT INTO ORDER_PRODUCT(BASKETLIST_NO) VALUES (?)";
+					PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+					pstmt2.setString(1, arr[i]);
+					ResultSet rs2 = pstmt2.executeQuery();
+				}
+				System.out.print("배송지주소 : ");
+				String address = Main.SC.nextLine();
+				System.out.print("연락처 : ");
+				String phone = Main.SC.nextLine();
 				
-				String sql2 = "INSERT INTO ORDER_PRODUCT(ORD_NO, BASKETLIST_NO, ORDPRICE_TOTAL, ORD_DATE, ORD_ADR, ORD_PH )"
-						+ "VALUES (SEQ_ORD_NO.CURRVAL, SEQ_BASKETLIST_NO.CURRVAL, ?, SYSDATE, ?, ?)";
-				PreparedStatement pstmt2 = conn.prepareStatement(sql);
+				conn.close();
+
+				Connection conn3 = JdbcTemplate.getConnection();
+				String sql3 = "UPDATE BASKET SET BUY_YN = 'N' WHERE BUY_YN = 'Y'";
+				PreparedStatement pstmt3 = conn3.prepareStatement(sql3);
+				pstmt3.execute();
 				
-				OrderProductData opd = new OrderProductData();
-				pstmt2.setString(1, opd.getOrdpriceTotal());
+				conn.close();
 				
-				MemberData md = new MemberData();
-				pstmt2.setString(2, md.getMemberAdr());
-				pstmt2.setString(3, md.getMemberPh());
-				
-				ResultSet rs2 = pstmt2.executeQuery();
-				
-				
-				//결제 메소드로 넘어가기
+				//결제 메소드로 이동
+				Pay p = new Pay();
+				p.payShow();
 				
 			}else if (choiceNum == 2) {
 				System.out.println("홈으로 돌아갑니다.");
 			}else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
+
+			
 			
 	}
 	
