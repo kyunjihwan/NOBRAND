@@ -1,10 +1,5 @@
 package com.ljh.event;
 
-import java.util.Scanner;
-
-import com.ljh.inquirycenter.InquiryService;
-import com.main.Main;
-
 public class Event {
 
 	public static void main(String[] args) throws Exception {
