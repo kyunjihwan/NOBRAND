@@ -19,12 +19,10 @@ public class BasketInput {
 		
 		System.out.println("===== 장바구니 담기 =====");
 		
-		Scanner sc = new Scanner(System.in);
- 
 		System.out.print("글자 : ");
-		String ltr = sc.nextLine();
+		String ltr = Main.SC.nextLine();
 		System.out.print("글자위치 : ");
-		String lpo = sc.nextLine();
+		String lpo = Main.SC.nextLine();
 				
 		String sql = "INSERT INTO BASKET(BASKET_NO, PROD_NO, BASKET_DATE, LETTER, LETTER_POTION) VALUES (SEQ_BASKET_NO.NEXTVAL, ?, SYSDATE, ?, ?) ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);

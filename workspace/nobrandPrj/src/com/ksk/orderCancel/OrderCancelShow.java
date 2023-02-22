@@ -36,9 +36,23 @@ public class OrderCancelShow {
 			int choiceNum = Main.SC.nextInt();
 
 			if (choiceNum == 1) {
-				//결제취소 메소드로 넘어가기
+				// 주문취소 후 주문 여부 n으로 바꾸기
+				System.out.print("주문취소할 상품번호 : ");
+				String can = Main.SC.nextLine();
+				
+				String sql2 = "UPDATE BASKET SET BUY_YN = 'N' WHERE PROD_NO = ?";
+				Connection conn2 = JdbcTemplate.getConnection();
+				PreparedStatement pstmt2 = conn2.prepareStatement(sql);
+				pstmt.setString(1, can);
+
+				int result = pstmt.executeUpdate();
+				if (result == 1) {
+					System.out.println("주문취소가 완료되었습니다.");	
+					}
+				else {System.out.println("주문취소가 정상적으로 이루어지지 않았습니다.");}
+				
 			}else if (choiceNum == 2) {
-				//메인메뉴로 돌아가기
+				System.out.println("홈으로 돌아갑니다.");
 			}else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
