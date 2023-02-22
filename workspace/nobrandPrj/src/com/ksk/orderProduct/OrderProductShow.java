@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.jdbc.JdbcTemplate;
 import com.kjh.Main;
 
 public class OrderProductShow {
 
-	public void productOrder(Connection conn) throws Exception {
+	public void productOrder() throws Exception {
 		System.out.println("===== 주문하기 =====");
 		String sql = "SELECT ORD_NO , BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OR.BASKETLIST_NO ORDER BY ORD_NO";
+		Connection conn = JdbcTemplate.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
