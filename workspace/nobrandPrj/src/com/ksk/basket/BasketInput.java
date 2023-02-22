@@ -18,11 +18,14 @@ public class BasketInput {
 	public void inputBasket(String pno, Connection conn) throws Exception {
 		
 		
-		System.out.println("===== 장바구니 담기 =====");
+		System.out.println();
+		System.out.println("                   ───── 장바구니 담기 ─────");
 		
-		System.out.print("글자 : ");
+		System.out.println("                           글자");
+		System.out.print("                       입력 >> ");
 		String ltr = Main.SC.nextLine();
-		System.out.print("글자위치 : ");
+		System.out.println("                           글자 위치");
+		System.out.print("                       입력 >> ");
 		String lpo = Main.SC.nextLine();
 				
 		String sql = "INSERT INTO BASKET(BASKET_NO, PROD_NO, BASKET_DATE, LETTER, LETTER_POTION) VALUES (SEQ_BASKET_NO.NEXTVAL, ?, SYSDATE, ?, ?) ";
@@ -37,9 +40,9 @@ public class BasketInput {
 		bli.inputBasketlist(conn);
 		
 		if(result == 1) {
-			System.out.println("장바구니 담기 완료");
+			System.out.println("                        장바구니 담기 완료");
 		}else {
-			System.out.println("장바구니 담기 실패");
+			System.out.println("                        장바구니 담기 실패");
 		}
 		conn.close();
 		

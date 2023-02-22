@@ -35,9 +35,9 @@ public class ManagerProduct {
 		}
 		
 		if(result == 1) {
-			System.out.println("상품이 등록됐습니다.");
+			System.out.println("                       *상품 등록*");
 		}else {
-			System.out.println("상품 등록 실패...");
+			System.out.println("                      상품 등록 실패...");
 		}
 
 		// 커넥션 연결 닫기
@@ -60,9 +60,9 @@ public class ManagerProduct {
 		int result = pstmt.executeUpdate();
 		
 		if(result >= 1) {
-			System.out.println("상품이 삭제됐습니다.");
+			System.out.println("                      상품이 삭제됐습니다.");
 		}else {
-			System.out.println("상품이 삭제가 실패했습니다");
+			System.out.println("                    상품이 삭제가 실패했습니다");
 		}
 		
 		// 커넥션 끊기

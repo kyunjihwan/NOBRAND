@@ -36,13 +36,19 @@ public class CouponLoad {
 	public void couponShow() throws Exception {
 
 		// 주문 시, 쿠폰 보여주기
-		System.out.println("보유중인 쿠폰");
-
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║               COUPON             ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println();
+		
 		String sql = "SELECT CP_NO, CP_NAME, CP_PERCENT, CP_PRICE, CP_YN, CP_DATE FROM COUPON WHERE CP_YN = 'N'";
 		Connection conn = JdbcTemplate.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 
+		System.out.println(" ID   NICK   DISCOUNT       DATE");
+		System.out.println(" ═════════════════════════════════════════════════");
 		while (rs.next()) {
 			String cpNo = rs.getString("CP_NO");
 			String cpName = rs.getString("CP_NAME");
@@ -52,14 +58,14 @@ public class CouponLoad {
 			Timestamp cpDate = rs.getTimestamp("CP_DATE");
 
 			if (cpPercent == null) {
-				System.out.println(cpNo + " | " + cpName + " | " + cpPrice + "원" + " | " + cpDate);
+				System.out.println(" " + cpNo + "   " + cpName + "   " + cpPrice + "원" + "   " + cpDate);
 	
 			} else if(cpPrice == null) { 
-				System.out.println(cpNo + " | " + cpName + " | " + cpPercent + "% | " + cpDate);
+				System.out.println(" " + cpNo + "   " + cpName + "   " + cpPercent + "%   " + cpDate);
 			}
 			
 		}
-		
+		System.out.println();
 	}
 
 }

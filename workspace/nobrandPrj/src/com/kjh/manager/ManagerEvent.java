@@ -13,7 +13,7 @@ public class ManagerEvent {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
-		System.out.println("===== 광고 목록 =====");
+		System.out.println("                ────────── 광고 등록 ──────────");
 		
 		String sql = "SELECT E_NO, E_TITLE, E_CONTENT FROM EVENT";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -24,7 +24,7 @@ public class ManagerEvent {
 			String eventName = rs.getString("E_TITLE");
 			String eventContent = rs.getString("E_CONTENT");
 			
-			System.out.println(eventNum + "| " + eventName + " | " + eventContent);
+			System.out.println("            광고번호 : " + eventNum + "  광고이름 : " + eventName + "  광고 내용 : " + eventContent);
 		}
 		
 		conn.close();
@@ -35,10 +35,12 @@ public class ManagerEvent {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
-		System.out.println("===== 광고 추가 =====");
-		System.out.print("광고 이름 : ");
+		System.out.println("                ────────── 광고 등록 ──────────");
+		System.out.println("                       1. 광고 제목");
+		System.out.print("                        입력 >> ");
 		String eventName = Main.SC.nextLine();
-		System.out.print("광고 내용 : ");
+		System.out.println("                       1. 광고 내용");
+		System.out.print("                        입력 >> ");
 		String eventContent = Main.SC.nextLine();
 		
 		String sql = "INSERT INTO EVENT(E_NO, MANAGER_NO, E_TITLE, E_CONTENT) VALUES(SEQ_E_NO.NEXTVAL, 1, ?, ?)";
@@ -48,9 +50,9 @@ public class ManagerEvent {
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
-			System.out.println("광고 등록 성공");
+			System.out.println("                       *광고 등록*");
 		}else {
-			System.out.println("광고 등록 실패");
+			System.out.println("                       광고 등록 실패");
 		}
 		
 		conn.close();
@@ -61,9 +63,12 @@ public class ManagerEvent {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
-		System.out.println("===== 광고 제거 =====");
+		System.out.println("                ────────── 광고 삭제 ──────────");
+		System.out.println();
 		showEventList();
-		System.out.print("광고 제거(9. 뒤로가기) : ");
+		System.out.println();
+		System.out.println("                     광고명 제게 (9. 뒤로가기)");
+		System.out.print("                        입력 >> ");
 		String eventName = Main.SC.nextLine();
 		
 		if(eventName.equals("9")){
@@ -76,9 +81,9 @@ public class ManagerEvent {
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
-			System.out.println("광고 삭제 성공");
+			System.out.println("                       *광고 삭제*");
 		}else {
-			System.out.println("광고 삭제 실패...");
+			System.out.println("                       광고 삭제 실패");
 		}
 		
 		conn.close();
@@ -88,7 +93,7 @@ public class ManagerEvent {
 		Connection conn = JdbcTemplate.getConnection();
 		
 //		String sql = "SELECT E_CONTENT FROM EVENT ORDER BY dbms_random.value";
-		String sql = "SELECT LPAD(E_CONTENT,35) E_CONTENT FROM EVENT ORDER BY dbms_random.value";
+		String sql = "SELECT E_CONTENT FROM EVENT ORDER BY dbms_random.value";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		

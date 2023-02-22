@@ -15,38 +15,48 @@ public class ReviewShow {
 	
 	public void writeReview() throws Exception {
 		
-		System.out.print("\n제목(뒤로가기:9) : ");
+		System.out.println();
+		System.out.println("                     1. 상품번호(9. 뒤로가기) ");
+		System.out.print("                       입력 >> ");
+		String prodNum = Main.SC.nextLine();
+		if(prodNum.equals("9")) {
+			System.out.println("                     작성 취소");
+			return ;
+		}
+		System.out.println("                     2. 제목(9. 뒤로가기)  ");
+		System.out.print("                       입력 >> ");
 		String title = Main.SC.nextLine();
 		if(title.equals("9")) {
-			System.out.println("작성 취소");
-			rvs.startService();
+			System.out.println("                     작성 취소");
+			return ;
 		}
-		
-		System.out.print("내용(뒤로가기:9) : ");
+		System.out.println("                     3. 내용(뒤로가기:9) ");
+		System.out.print("                       입력 >> ");
 		String content = Main.SC.nextLine();
 		if(content.equals("9")) {
-			System.out.println("작성 취소");
-			rvs.startService();
+			System.out.println("                     작성 취소");
+			return ;
 		}
 		
-		System.out.print("별점 : ");
+		System.out.println("                     4. 별점 ");
+		System.out.print("                       입력 >> ");
 		String rating = Main.SC.nextLine();
 		
 		conn = JdbcTemplate.getConnection();
-		String sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,'1', ?,'1',?,?,SYSDATE,?)";
+		String sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,?, ?,'1',?,?,SYSDATE,?)";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, Main.loginMemberNo);
-		pstmt.setString(2, title);
-		pstmt.setString(3, content);
-		pstmt.setString(4, rating);
+		pstmt.setString(1, prodNum);
+		pstmt.setString(2, Main.loginMemberNo);
+		pstmt.setString(3, title);
+		pstmt.setString(4, content);
+		pstmt.setString(5, rating);
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
-			System.out.println("작성 완료");
-			rvs.startService();
+			System.out.println("                       *작성 완료*");
 		}else {
-			System.out.println("작성 실패");
+			System.out.println("                        작성 실패");
 		}
 		
 		conn.close();
@@ -58,7 +68,8 @@ public class ReviewShow {
 		//삭제할 글 정보 받아오기
 		String no;
 		while(true) {
-			System.out.print("\n삭제할 글의 번호를 선택하세요(9. 뒤로가기) : ");
+			System.out.println("\n                      삭제할 글 번호(9. 뒤로가기) ");
+			System.out.print("                       입력 >> ");
 			no = Main.SC.nextLine();
 			if("9".equals(no)) {
 				break;
@@ -72,7 +83,7 @@ public class ReviewShow {
 			if(rs.next()) {
 				break;
 			}else {
-				System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
+				System.out.println("         해당하는 글이 없습니다. 다시 입력해주세요.");
 			}
 			conn.close();
 		}
@@ -88,9 +99,9 @@ public class ReviewShow {
 		showReviewList();
 		
 		if(result == 1) {
-			System.out.println("\n삭제 완료");
+			System.out.println("\n                         *삭제 완료*");
 		}else {
-			System.out.println("삭제 실패");
+			System.out.println("                          삭제 실패");
 		}
 		conn.close();
 	}
@@ -101,7 +112,8 @@ public class ReviewShow {
 		//수정할 글 정보 받아오기
 		String no;
 		while(true) {
-			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
+			System.out.println("\n                      수정할 글의 번호(9. 뒤로가기) ");
+			System.out.print("                       입력 >> ");
 			no = Main.SC.nextLine();
 			if("9".equals(no)) {
 				return;
@@ -115,14 +127,15 @@ public class ReviewShow {
 			if(rs.next()) {
 				break;
 			}else {
-				System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
+				System.out.println("         해당하는 글이 없습니다. 다시 입력해주세요.");
 			}
 			conn.close();
 		}
 		//수정할 글 상세조회
 		showDetailReview(no);
 		//수정할 정보 받아오기
-		System.out.println("\n수정할 제목을 입력하세요.(수정사항 없으면 9) : ");
+		System.out.println("\n                      수정할 글 제목(9. 뒤로가기) ");
+		System.out.print("                       입력 >> ");
 		String title = Main.SC.nextLine();
 		
 		if(title.equals("9")) {
@@ -138,7 +151,8 @@ public class ReviewShow {
 			if(rs.next()) {
 				title = rs.getString(1);
 			}
-			System.out.println("수정할 내용을 입력하세요 : ");
+			System.out.println("\n                      수정할 글의 내용 ");
+			System.out.print("                       입력 >> ");
 		//제목 수정 후 내용 수정
 		}else {
 			System.out.println("수정할 내용을 입력하세요 (수정사항 없으면 9) : ");
@@ -156,9 +170,9 @@ public class ReviewShow {
 		showDetailReview(no);
 		
 		if(result == 1) {
-			System.out.println("\n수정 완료");
+			System.out.println("\n                         *수정 완료*");
 		}else {
-			System.out.println("수정 실패");
+			System.out.println("                          수정 실패");
 		}
 		conn.close();
 	}
@@ -169,10 +183,13 @@ public class ReviewShow {
 	}
 	
 	public void showReviewList() throws Exception {
-		System.out.println("\n                             리뷰 게시판");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║           REVIEW BOARD           ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
 		System.out.println("");
-		System.out.println("NO          TITLE             RATING           WRITER             DATE");
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println(" NO          TITLE             RATING           WRITER             DATE");
+		System.out.println(" ════════════════════════════════════════════════════════════════════════════");
 		
 		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,25), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,10), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') "
 				+ "FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO WHERE RE_DEL_YN = 'N' ORDER BY REVIEW_NO ";
@@ -181,7 +198,7 @@ public class ReviewShow {
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next()) {
-	         System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
+	         System.out.println(" " + rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
 	      }
 		rs.close();
 		conn.close();
@@ -214,7 +231,7 @@ public class ReviewShow {
 					}else if("9".equals(no)){
 						break;
 					}else {
-						System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
+						System.out.println("         해당하는 글이 없습니다. 다시 입력해주세요.");
 					}
 				}
 			}else if("2".equals(input)) {
@@ -222,7 +239,7 @@ public class ReviewShow {
 			}else if("9".equals(input)) {
 				break;
 			}else {
-				System.out.println("다시 입력해주세요.");
+				System.out.println("         다시 입력해주세요.");
 				continue;
 			}
 		}
@@ -230,8 +247,8 @@ public class ReviewShow {
 	
 	public void showDetailReview(String no) throws Exception {
 		
-		System.out.println("\nNO          TITLE             RATING           WRITER             DATE");
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("\n NO          TITLE             RATING           WRITER             DATE");
+		System.out.println(" ───────────────────────────────────────────────────────────────────────────");
 		
 		
 		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO WHERE REVIEW_NO = ?";
@@ -239,20 +256,20 @@ public class ReviewShow {
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
-			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
+			System.out.println(" " + rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
 		}
 		rs.close();
 		
-		System.out.println("===========================================================================");
+		System.out.println(" ═══════════════════════════════════════════════════════════════════════════");
 		
 		sql = "SELECT RE_CONTENT FROM REVIEW WHERE REVIEW_NO = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		rs = pstmt.executeQuery();
 		if(rs.next()) {
-			System.out.println("내용\n: " + rs.getString(1));
+			System.out.println(" 내용\n : " + rs.getString(1));
 		}
-		System.out.println("===========================================================================");
+		System.out.println(" ═══════════════════════════════════════════════════════════════════════════");
 		rs.close();
 		conn.close();
 	

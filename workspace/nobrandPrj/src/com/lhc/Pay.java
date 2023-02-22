@@ -45,15 +45,16 @@ public class Pay {
 	// 주문한 상품 가져오기(완) - basketlistshow에서 가져오기
 	public void payShow() throws Exception {
 
-		System.out.print("결제하시겠습니까?(y/n) : ");
+		System.out.println("                        결제 (y/n)");
+		System.out.print("                       입력 >> ");
 		String yn = Main.SC.nextLine();
 
 		if (yn.equals("y") || yn.equals("Y")) {
 			pay();
 		} else if (yn.equals("n") || yn.equals("N")) {
-			System.out.println("시스템 종료");
+			System.out.println("                        결제 취소");
 		} else {
-			System.out.println("잘못된 입력입니다.");
+			System.out.println("                        잘못된 입력입니다.");
 		}
 
 	}
@@ -70,7 +71,7 @@ public class Pay {
 
 		Connection conn = JdbcTemplate.getConnection();
 
-		System.out.println("결제 수단을 선택하세요");
+		System.out.println("                        결제수단 선택");
 		String sql = "SELECT PAY_TYPE_NO, PAY_TYPE_NAME FROM PAY_TYPE";
 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -80,15 +81,17 @@ public class Pay {
 			String ptno = rs.getString("PAY_TYPE_NO");
 			String ptname = rs.getString("PAY_TYPE_NAME");
 
-			System.out.println(ptno + " | " + ptname);
+			System.out.println("                        " + ptno + ". " + ptname);
 		}
 
+		System.out.println();
+		System.out.print("                       입력 >> ");
 		String pt = Main.SC.nextLine();
 
 		while (true) {
 
 			if (pt.equals("1")) {
-				System.out.println("계좌이체로 결제합니다.");
+				System.out.println("                     계좌이체로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
 				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
@@ -97,14 +100,16 @@ public class Pay {
 				int result = pstmt2.executeUpdate();
 
 				if (result == 1) {
-					System.out.println("결제데이터 저장 완료");
+					System.out.println("                        *결제 완료*");
+					System.out.println();
 				} else {
-					System.out.println("결제 실패");
+					System.out.println("                        결제 실패");
+					System.out.println();
 				}
 				break;
 				
 			} else if (pt.equals("2")) {
-				System.out.println("카드로 결제합니다.");
+				System.out.println("                     카드로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
 				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
@@ -113,14 +118,16 @@ public class Pay {
 				int result = pstmt2.executeUpdate();
 
 				if (result == 1) {
-					System.out.println("결제데이터 저장 완료");
+					System.out.println("                        *결제 완료*");
+					System.out.println();
 				} else {
-					System.out.println("결제 실패");
+					System.out.println("                        결제 실패");
+					System.out.println();
 				}
 				break;
 				
 			} else if(pt.equals("3")) {
-				System.out.println("카카오페이로 결제합니다.");
+				System.out.println("                     카카오페이로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
 				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
@@ -129,13 +136,15 @@ public class Pay {
 				int result = pstmt2.executeUpdate();
 
 				if (result == 1) {
-					System.out.println("결제데이터 저장 완료");
+					System.out.println("                        *결제 완료*");
+					System.out.println();
 				} else {
-					System.out.println("결제 실패");
+					System.out.println("                        결제 실패");
+					System.out.println();
 				}
 				break;
 			}else if(pt.equals("4")) {
-				System.out.println("비트코인으로 결제합니다.");
+				System.out.println("                     비트코인으로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
 				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
@@ -144,15 +153,17 @@ public class Pay {
 				int result = pstmt2.executeUpdate();
 
 				if (result == 1) {
-					System.out.println("결제데이터 저장 완료");
+					System.out.println("                        *결제 완료*");
+					System.out.println();
 				} else {
-					System.out.println("결제 실패");
+					System.out.println("                        결제 실패");
+					System.out.println();
 				}
 				break;
 			}
 			
 			else {
-				System.out.println("사용할 수 없는 결제 수단입니다.");
+				System.out.println("                        사용할 수 없는 결제 수단입니다.");
 				continue;
 			}
 		}

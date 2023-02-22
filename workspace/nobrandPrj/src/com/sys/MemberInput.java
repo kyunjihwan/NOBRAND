@@ -6,19 +6,30 @@ public class MemberInput {
 	
 	//회원가입 입력받기
 	public MemberData join() {
-		System.out.print("아이디 : ");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║               JOIN               ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
+		System.out.println("                        1. 아이디");
+		System.out.print("                       입력 >> ");
 		String memberId = Main.SC.nextLine();
-		System.out.print("비밀번호 : ");
+		System.out.println("                        2. 비밀번호");
+		System.out.print("                       입력 >> ");
 		String memberPwd = Main.SC.nextLine();
-		System.out.print("닉네임 : ");
+		System.out.println("                        3. 닉네임");
+		System.out.print("                       입력 >> ");
 		String memberNick = Main.SC.nextLine();
-		System.out.print("주소 : ");
+		System.out.println("                        4. 주소");
+		System.out.print("                       입력 >> ");
 		String memberAdr = Main.SC.nextLine();
-		System.out.print("핸드폰번호 : ");
+		System.out.println("                        5. 핸드폰번호");
+		System.out.print("                       입력 >> ");
 		String memberPh = Main.SC.nextLine();
-		System.out.print("힌트내용 : ");
+		System.out.println("                        6. 힌트내용");
+		System.out.print("                       입력 >> ");
 		String hintContent = Main.SC.nextLine();	
-		System.out.print("힌트 정답 : ");
+		System.out.println("                        7. 힌트 정답");
+		System.out.print("                       입력 >> ");
 		String answerHint = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -37,18 +48,21 @@ public class MemberInput {
 	public MemberData login() {
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
-		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
+		System.out.println(" ██╗   ██╗ ██████╗ ███████╗ ███████╗  ██████╗ ██╗   ██╗██████╗  ");
+		System.out.println(" ████╗ ██║██╔═══██╗██╔═══██╗██╔═══██╗██╔═══██╗████╗ ██║██╔══██╗");
+		System.out.println(" ██║██╗██║██║   ██║███████═╝███████╔╝████████║██╔██╗██║██║  ██║ ");
+		System.out.println(" ██║╚████║██║   ██║██╔═══██╗██╔══██╚╗██╔═══██║██║╚████║██║  ██║");
+		System.out.println(" ██║  ╚██║╚██████╔╝███████╔╝██║  ╚██║██║   ██║██║  ╚██║██████╔╝" );
+		System.out.println(" ╚═╝   ╚═╝ ╚═════╝ ╚══════╝ ╚═╝   ╚═╝╚═╝   ╚═╝╚═╝   ╚═╝╚═════╝  ");
 		System.out.println();
 		System.out.println();
-		System.out.println("                           로그인");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║              LOGIN               ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
 		System.out.println();
-		System.out.print("                       아이디 >> ");
+		System.out.print("                      아이디 >> ");
 		String memberId = Main.SC.nextLine();
-		System.out.print("                      비밀번호 >> ");
+		System.out.print("                     비밀번호 >> ");
 		String memberPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -61,18 +75,21 @@ public class MemberInput {
 	public MemberData managerLogin() {
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
-		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
+		System.out.println(" ██╗   ██╗ ██████╗ ███████╗ ███████╗  ██████╗ ██╗   ██╗██████╗  ");
+		System.out.println(" ████╗ ██║██╔═══██╗██╔═══██╗██╔═══██╗██╔═══██╗████╗ ██║██╔══██╗");
+		System.out.println(" ██║██╗██║██║   ██║███████═╝███████╔╝████████║██╔██╗██║██║  ██║ ");
+		System.out.println(" ██║╚████║██║   ██║██╔═══██╗██╔══██╚╗██╔═══██║██║╚████║██║  ██║");
+		System.out.println(" ██║  ╚██║╚██████╔╝███████╔╝██║  ╚██║██║   ██║██║  ╚██║██████╔╝" );
+		System.out.println(" ╚═╝   ╚═╝ ╚═════╝ ╚══════╝ ╚═╝   ╚═╝╚═╝   ╚═╝╚═╝   ╚═╝╚═════╝  ");
 		System.out.println();
 		System.out.println();
-		System.out.println("                         관리자 로그인");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║          MANAGER LOGIN           ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
 		System.out.println();
-		System.out.print("                       아이디 >> ");
+		System.out.print("                      아이디 >> ");
 		String managerId = Main.SC.nextLine();
-		System.out.print("                      비밀번호 >> ");
+		System.out.print("                     비밀번호 >> ");
 		String managerPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -83,8 +100,11 @@ public class MemberInput {
 		
 	//힌트질문 찾기 입력받기
 	public MemberData showFindMemberId() {
-				
-		System.out.println("핸드폰번호 : ");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║             ID SEARCH            ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");		
+		System.out.println("                       1. 핸드폰번호 ");
+		System.out.print("                       입력 >> ");
 		String memberPh = Main.SC.nextLine();
 		
 		
@@ -96,7 +116,8 @@ public class MemberInput {
 	//아이디 찾기 입력받기
 	public MemberData showFindMemberIdd() {
 		
-		System.out.print("정답 : ");
+		System.out.println("                       2. 힌트 정답 ");
+		System.out.print("                       입력 >> ");
 		String answerHint = Main.SC.nextLine();
 		
 		
@@ -107,8 +128,11 @@ public class MemberInput {
 	}
 	//비번 찾기 입력받기
 	public MemberData showFindMemberPwd() {
-		
-		System.out.print("아이디 : ");
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║             PWD SEARCH           ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("                       1. 아이디   ");
+		System.out.print("                       입력 >> ");
 		String memberId = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -132,8 +156,8 @@ public class MemberInput {
 	//좋아요 삭제
 	public MemberData deleteGreat() {
 		
-		System.out.println("삭제할 상품이 없을시 9을 입력하세요");
-		System.out.print("삭제할 상품번호 : ");
+		System.out.println("                        삭제할 상품번호");
+		System.out.println("                       입력 >> ");
 		String productNo = Main.SC.nextLine();
 		
 		
@@ -147,7 +171,9 @@ public class MemberInput {
 	//비번변경
 	public MemberData updateMemberPwdInfo() {
 		
-		System.out.print("새 비밀번호 : ");
+		System.out.println();
+		System.out.println("                         새 비밀번호 변경");
+		System.out.print("                       입력 >> ");
 		String memberPwd = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
@@ -160,7 +186,9 @@ public class MemberInput {
 	//닉변경
 	public MemberData updateMemberNickInfo() {
 		
-		System.out.print("새 닉네임 : ");
+		System.out.println("");
+		System.out.println("                         새 닉네임 ");
+		System.out.print("                       입력 >> ");
 		String memberNick = Main.SC.nextLine();
 		
 		MemberData data = new MemberData();
