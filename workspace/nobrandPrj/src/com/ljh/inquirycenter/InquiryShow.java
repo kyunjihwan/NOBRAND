@@ -40,9 +40,10 @@ public class InquiryShow {
 		showBoardList();
 		InquiryData data = ip.deleteBoardInput(conn);
 		conn = JdbcTemplate.getConnection();
-		sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ?";
+		sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ? AND MEMBER_NO = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, data.getNo());
+		pstmt.setString(2, Main.loginMemberNo);
 		result = pstmt.executeUpdate();
 		if(result == 1) {
 			System.out.println("삭제 완료");
@@ -56,12 +57,16 @@ public class InquiryShow {
 		showBoardList();
 		//수정할 글 번호 입력 받기 
 		while(true) {
-			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
+			System.out.print("\n수정할 글의 번호를 입력하세요(9. 뒤로가기) : ");
 			no = Main.SC.nextInt();
+			if(no == 9) {
+				return ;
+			}
 			conn = JdbcTemplate.getConnection();
-			String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
+			String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ? AND MEMBER_NO = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
+			pstmt.setString(2, Main.loginMemberNo);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				break;
