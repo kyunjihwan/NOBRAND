@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.jdbc.JdbcTemplate;
 import com.nobrand.main.Main;
 
 public class MemberService {
@@ -193,7 +194,7 @@ public class MemberService {
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "INSERT INTO GREAT (MEMBER_NO, PRODUCT_NO) VALUES (?, ?)"; 
+		String sql = "INSERT INTO GREAT (MEMBER_NO, PROD_NO) VALUES (?, ?)"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -231,7 +232,7 @@ public class MemberService {
 		
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "SELECT P.PROD_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PRODUCT_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
+		String sql = "SELECT P.PROD_NO, PROD_NAME, PRICE FROM PRODUCT P JOIN GREAT G ON G.PROD_NO = P.PROD_NO JOIN MEMBER M ON M.MEMBER_NO = G.MEMBER_NO WHERE M.MEMBER_NO = ?"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
