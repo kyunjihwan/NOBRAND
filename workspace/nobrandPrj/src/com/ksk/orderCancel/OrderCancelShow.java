@@ -36,16 +36,18 @@ public class OrderCancelShow {
 			int choiceNum = Main.SC.nextInt();
 
 			if (choiceNum == 1) {
-				// 주문취소 후 주문 여부 n으로 바꾸기
-				System.out.print("주문취소할 상품번호 : ");
+				
+				System.out.print("주문취소할 주문번호 : ");
 				String can = Main.SC.nextLine();
 				
-				String sql2 = "UPDATE BASKET SET BUY_YN = 'N' WHERE PROD_NO = ?";
+				
+				//주문취소하면 결제취소 테이블에 인서트하기
 				Connection conn2 = JdbcTemplate.getConnection();
-				PreparedStatement pstmt2 = conn2.prepareStatement(sql);
-				pstmt.setString(1, can);
-
+				String sql2 = "INSERT INTO ORDER_CANCEL(ORD_C_NO , ORD_NO , ORD_C_DATE) VALUES (SEQ_ORD_C_NO.NEXTVAL , ? , SYSDATE)";
+				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				pstmt2.setString(1, can);
 				int result = pstmt.executeUpdate();
+				
 				if (result == 1) {
 					System.out.println("주문취소가 완료되었습니다.");	
 					}

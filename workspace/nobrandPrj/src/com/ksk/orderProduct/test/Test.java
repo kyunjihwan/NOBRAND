@@ -1,21 +1,23 @@
-package com.ksk.orderProduct;
+package com.ksk.orderProduct.test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.jdbc.JdbcTemplate;
-
-import com.ksk.basketlist.BasketlistData;
-import com.lhc.Pay;
-import com.nobrand.main.Main;
+import com.kjh.Main;
+import com.ksk.orderProduct.OrderProductData;
 import com.sys.MemberData;
 
-public class OrderProductShow {
+public class Test {
 
-	public void productOrder() throws Exception {
+	public static void main(String[] args) throws Exception {
 
+		Connection conn = JdbcTemplate.getConnection();
+		
 		System.out.println("===== 주문하기 =====");
+		String sql = "SELECT ORD_NO ,PROD_NAME, OP.BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON  BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON P.PROD_NO = B.PROD_NO ORDER BY ORD_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -35,6 +37,8 @@ public class OrderProductShow {
 		
 			conn.close();
 			
+			Connection conn2 = JdbcTemplate.getConnection();
+			
 			System.out.println("해당 상품들을 결제하시겠습니까?");
 			System.out.println("1. 결제하기");
 			System.out.println("2. 돌아가기");
@@ -42,43 +46,26 @@ public class OrderProductShow {
 			int choiceNum = Main.SC.nextInt();
 			
 			if (choiceNum == 1) {
-				System.out.println("결제할 장바구니 번호를 입력해주세요 : ");
-				Connection conn2 = JdbcTemplate.getConnection();
-				String basketListNum = Main.SC.nextLine();
-				String[] arr = basketListNum.split(",");
-				for(int i = 0; i < arr.length; i++)
-				{
-					String sql2 = "INSERT INTO ORDER_PRODUCT(BASKETLIST_NO) VALUES (?)";
-					PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
-					pstmt2.setString(1, arr[i]);
-					ResultSet rs2 = pstmt2.executeQuery();
+				
+				String sql2 = "INSERT INTO ORDER_PRODUCT(ORD_NO, BASKETLIST_NO, ORDPRICE_TOTAL, ORD_DATE, ORD_ADR, ORD_PH ) VALUES (SEQ_ORD_NO.NEXTVAL, SEQ_BASKETLIST_NO.NEXTVAL, ?, SYSDATE, ?, ?)";
+				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				
+				OrderProductData opd = new OrderProductData();
+				pstmt2.setString(1, opd.getOrdpriceTotal());
+				
+				MemberData md = new MemberData();
+				pstmt2.setString(2, md.getMemberAdr());
+				pstmt2.setString(3, md.getMemberPh());
+				
+				ResultSet rs2 = pstmt2.executeQuery();
+				
+				conn.close();
 				}
-				System.out.print("배송지주소 : ");
-				String address = Main.SC.nextLine();
-				System.out.print("연락처 : ");
-				String phone = Main.SC.nextLine();
-				
-				conn.close();
-
-				Connection conn3 = JdbcTemplate.getConnection();
-				String sql3 = "UPDATE BASKET SET BUY_YN = 'N' WHERE BUY_YN = 'Y'";
-				PreparedStatement pstmt3 = conn3.prepareStatement(sql3);
-				pstmt3.execute();
-				
-				conn.close();
-				
-				//결제 메소드로 이동
-				Pay p = new Pay();
-				p.payShow();
-				
-			}else if (choiceNum == 2) {
+			else if (choiceNum == 2) {
 				System.out.println("홈으로 돌아갑니다.");
 			}else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
-
-			
-			
 	}
-	
 }
+

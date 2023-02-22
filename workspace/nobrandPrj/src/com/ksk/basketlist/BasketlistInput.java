@@ -3,12 +3,14 @@ package com.ksk.basketlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import com.jdbc.JdbcTemplate;
 import com.nobrand.main.Main;
 
 public class BasketlistInput {
 
-	public void inputBasketlist(Connection conn) throws Exception {
+	public void inputBasketlist() throws Exception {
 		
+		Connection conn = JdbcTemplate.getConnection();
 		
 		System.out.println("===== 장바구니 내역 담기 =====");
 		
@@ -23,6 +25,7 @@ public class BasketlistInput {
 			System.out.println("장바구니내역 담기 실패");
 		}
 				
+		conn.close();
 	}
 	
 }
