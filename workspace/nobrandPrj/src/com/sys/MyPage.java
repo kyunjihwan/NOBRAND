@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
+import com.ksk.orderCancel.OrderCancelShow;
 import com.nobrand.main.Main;
 
 public class MyPage {
@@ -50,7 +51,7 @@ public class MyPage {
 			
 		//select
 		Connection conn = JdbcTemplate.getConnection();
-		String sql = "SELECT OP.ORD_NUM,P.PROD_NO, PROD_NAME , PRICE, LETTER, LETTER_POTION, SIZE_NAME FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON B.BASKET_NO = BL.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO JOIN MAGNITUDE M ON M.SIZE_NO = P.SIZE_NO WHERE BL.MEMBER_NO = ?"; 
+		String sql = "SELECT OP.ORD_NUM,P.PROD_NO, PROD_NAME , PRICE, LETTER, LETTER_POTION, SIZE_NAME FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON B.BASKET_NO = BL.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO JOIN MAGNITUDE M ON M.SIZE_NO = P.SIZE_NO WHERE BL.MEMBER_NO = ? AND ORD_YN = 'N'"; 
 				
 				
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -74,9 +75,9 @@ public class MyPage {
 			
 		}
 		
-		
-		
 		conn.close();
+		OrderCancelShow ocs = new OrderCancelShow();
+		ocs.CancelOrder();
 	}
 
 	

@@ -33,13 +33,15 @@ public class BasketInput {
 		
 		int result = pstmt.executeUpdate();
 		
-		bli.inputBasketlist();
+		
+		bli.inputBasketlist(conn);
 		
 		if(result == 1) {
 			System.out.println("장바구니 담기 완료");
 		}else {
 			System.out.println("장바구니 담기 실패");
 		}
+		conn.close();
 		
 	}
 	

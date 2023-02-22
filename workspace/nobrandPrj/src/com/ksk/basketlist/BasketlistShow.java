@@ -5,17 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc. JdbcTemplate;
+import com.ksk.orderProduct.OrderProductShow;
 import com.nobrand.main.Main;
 
 public class BasketlistShow {
 
+	OrderProductShow ops = new OrderProductShow();
+	
+	
 	public void showBasketlist() throws Exception {
-		
 		Connection conn = JdbcTemplate.getConnection();
 		
-		System.out.println("                ========= 상품 등록 =========");
+		System.out.println("                ========= 장바구니 목록 =========");
 		System.out.println();
-		String sql = "SELECT BL.BASKETLIST_NO , PROD_NAME , PRICE, LETTER, LETTER_POTION FROM BASKETLIST BL JOIN BASKET B ON BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO WHERE MEMBER_NO = ? ORDER BY BASKETLIST_NO";
+		String sql = "SELECT BL.BASKETLIST_NO , PROD_NAME , PRICE, LETTER, LETTER_POTION FROM BASKETLIST BL JOIN BASKET B ON BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO WHERE MEMBER_NO = ? AND BUY_YN = 'N' ORDER BY BASKETLIST_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
 		ResultSet rs = pstmt.executeQuery();
@@ -32,7 +35,10 @@ public class BasketlistShow {
 			}
 			
 		conn.close();
-			
+		
+		ops.productOrder();
+		
+		
 	}
 
 
