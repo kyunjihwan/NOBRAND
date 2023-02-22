@@ -5,6 +5,7 @@ import com.kjh.manager.ManagerService;
 import com.kjh.product.ProductService;
 import com.ksk.basketlist.BasketlistShow;
 import com.ljh.inquirycenter.InquiryService;
+import com.ljh.review.ReviewService;
 import com.nobrand.main.Main;
 
 public class MainService {
@@ -17,6 +18,7 @@ public class MainService {
 	private ManagerService as = new ManagerService();
 	BasketlistShow bs = new BasketlistShow();
 	ManagerEvent me = new ManagerEvent();
+	ReviewService rs = new ReviewService();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
@@ -65,11 +67,11 @@ public class MainService {
 		
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
 		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
 		System.out.println();
 		System.out.println();
 		System.out.println("                         1. 회원가입");
@@ -98,6 +100,7 @@ public class MainService {
 		case "3" : bs.showBasketlist(); break;
 		case "4" : ps.showProduct(); break;
 		case "5" : is.inquiry(); break;
+		case "6" : rs.review(); break;
 		default : System.out.println("잘못 입력했습니다."); 
 		}
 		
@@ -115,6 +118,7 @@ public class MainService {
 		System.out.println("                         3. 장바구니");
 		System.out.println("                         4. 쇼핑페이지");
 		System.out.println("                         5. 고객문의센터");
+		System.out.println("                         6. 리뷰 게시판");
 		System.out.println("                         9. 뒤로가기");
 		System.out.println();
 		

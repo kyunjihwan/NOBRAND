@@ -59,7 +59,7 @@ public class ProductShow {
 		}
 		System.out.println();
 		
-		System.out.println("1. 구매");
+		System.out.println("1. 장바구니 담기");
 		System.out.println("2. 좋아요 등록");
 		System.out.println("9. 돌아가기");
 		String choiceNum = Main.SC.nextLine();

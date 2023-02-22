@@ -123,6 +123,7 @@ public class ManagerService {
 		System.out.println("====== 고객 답변 ======");
 		System.out.println("1. 고객문의게시글 답변 등록");
 		System.out.println("2. 고객문의게시글 삭제");
+		System.out.println("9. 뒤로가기");
 	}
 	
 } // class

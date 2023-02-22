@@ -37,11 +37,11 @@ public class MemberInput {
 	public MemberData login() {
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
 		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
 		System.out.println();
 		System.out.println();
 		System.out.println("                           로그인");
@@ -61,11 +61,11 @@ public class MemberInput {
 	public MemberData managerLogin() {
 		System.out.println();
 		System.out.println();
-		System.out.println("      #   #   ###   ###    ####     #    #   #  ###       ");
-		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #  #       ");
+		System.out.println("      #   #   ###   ###    ####     #    #   #  ####       ");
+		System.out.println("      ##  #  #   #  #  #   #   #   # #   ##  #  #   #       ");
 		System.out.println("      # # #  #   #  ####   ####   #####  # # #  #   #        ");
-		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #  #         ");
-		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  # #         ");
+		System.out.println("      #  ##  #   #  #   #  #  #   #   #  #  ##  #   #         ");
+		System.out.println("      #   #   ###   ####   #   #  #   #  #   #  ####         ");
 		System.out.println();
 		System.out.println();
 		System.out.println("                         관리자 로그인");
@@ -102,7 +102,7 @@ public class MemberInput {
 		
 		MemberData data = new MemberData();
 		
-		data.setAnswerHint(answerHint);
+		data.setAnswerHint(answerHint); 
 		return data;
 	}
 	//비번 찾기 입력받기

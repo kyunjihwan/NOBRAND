@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
-import com.main.Main;
+import com.nobrand.main.Main;
 
 public class ReviewShow {
 	
@@ -62,15 +62,19 @@ public class ReviewShow {
 		showReviewList();
 		//삭제할 글 정보 받아오기
 		while(true) {
-			System.out.print("\n삭제할 글의 번호를 선택하세요 : ");
+			System.out.print("\n삭제할 글의 번호를 선택하세요(9. 뒤로가기) : ");
 			no = Main.SC.nextInt();
 			
+			if(no == 9) {
+				break;
+			}
+			
 			conn = JdbcTemplate.getConnection();
-			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ?";
+			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
+			pstmt.setString(2, Main.loginMemberNo);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				break;
 			}else {
@@ -80,9 +84,10 @@ public class ReviewShow {
 		}
 		//삭제 여부 수정 
 		conn = JdbcTemplate.getConnection();
-		sql = "UPDATE REVIEW SET RE_DEL_YN = 'Y' WHERE REVIEW_NO = ?";
+		sql = "UPDATE REVIEW SET RE_DEL_YN = 'Y' WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, no);
+		pstmt.setString(2, Main.loginMemberNo);
 		result = pstmt.executeUpdate();
 		//글 목록으로 돌아가기
 		showReviewList();
@@ -102,10 +107,15 @@ public class ReviewShow {
 		while(true) {
 			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
 			no = Main.SC.nextInt();
-			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ?";
+			Main.SC.nextLine();
+			if(no == 9) {
+				return;
+			}
+			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
 			conn = JdbcTemplate.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
+			pstmt.setString(2, Main.loginMemberNo);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				break;
@@ -118,10 +128,13 @@ public class ReviewShow {
 		showDetailReview();
 		//수정할 정보 받아오기
 		System.out.println("\n수정할 제목을 입력하세요.(수정사항 없으면 9) : ");
-		String title = Main.SC.next();
-		Main.SC.nextLine();
-		//제목 수정사항 없으면 내용 수정으로 넘어가기 
+		String title = Main.SC.nextLine();
+		
 		if(title.equals("9")) {
+			return;
+		}
+		//제목 수정사항 없으면 내용 수정으로 넘어가기 
+		if(true) {
 			conn = JdbcTemplate.getConnection();
 			sql = "SELECT RE_TITLE FROM REVIEW WHERE REVIEW_NO = ?";
 			pstmt = conn.prepareStatement(sql);
