@@ -10,7 +10,6 @@ import com.nobrand.main.Main;
 public class ReviewShow {
 	
 	private Connection conn;
-	private int result;
 	private ReviewService rvs = new ReviewService();
 	
 	
@@ -40,7 +39,7 @@ public class ReviewShow {
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
 		pstmt.setString(3, rating);
-		result = pstmt.executeUpdate();
+		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
 			System.out.println("작성 완료");
@@ -83,7 +82,7 @@ public class ReviewShow {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		pstmt.setString(2, Main.loginMemberNo);
-		result = pstmt.executeUpdate();
+		int result = pstmt.executeUpdate();
 		//글 목록으로 돌아가기
 		showReviewList();
 		
@@ -151,7 +150,7 @@ public class ReviewShow {
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
 		pstmt.setString(3, no);
-		result = pstmt.executeUpdate();
+		int result = pstmt.executeUpdate();
 		
 		showDetailReview(no);
 		
