@@ -17,13 +17,13 @@ public class Test {
 		Connection conn = JdbcTemplate.getConnection();
 		
 		System.out.println("===== 주문하기 =====");
-		String sql = "SELECT ORD_NO ,PROD_NAME, OP.BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON  BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON P.PROD_NO = B.PROD_NO ORDER BY ORD_NO";
+		String sql = "SELECT ORD_NUM ,PROD_NAME, OP.BASKETLIST_NO , ORDPRICE_TOTAL , ORD_DATE , ORD_ADR , ORD_PH FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON  BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON P.PROD_NO = B.PROD_NO ORDER BY ORD_NUM";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next())
 		{
-			String OrdNo = rs.getString("ORD_NO");
+			String OrdNo = rs.getString("ORD_NUM");
 			String ProdName = rs.getString("PROD_NAME");
 			String BasketlistNo = rs.getString("BASKETLIST_NO");
 			String OrdpriceTotal = rs.getString("ORDPRICE_TOTAL");

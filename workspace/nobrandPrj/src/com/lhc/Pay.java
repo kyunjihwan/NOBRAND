@@ -45,11 +45,6 @@ public class Pay {
 	// 주문한 상품 가져오기(완) - basketlistshow에서 가져오기
 	public void payShow() throws Exception {
 
-		System.out.println("주문한 상품");
-
-		BasketlistShow bls = new BasketlistShow();
-		bls.showBasketlist();
-
 		System.out.print("결제하시겠습니까?(y/n) : ");
 		String yn = Main.SC.nextLine();
 
@@ -68,9 +63,6 @@ public class Pay {
 
 		// 결제수단
 		payType();
-
-		// 결제 상품 내역
-		payProduct();
 
 	}
 
