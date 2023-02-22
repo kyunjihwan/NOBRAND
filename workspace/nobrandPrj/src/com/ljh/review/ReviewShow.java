@@ -9,14 +9,9 @@ import com.nobrand.main.Main;
 
 public class ReviewShow {
 	
-	private String sql;
-	private PreparedStatement pstmt;
 	private Connection conn;
-	private ResultSet rs;
 	private int result;
 	private ReviewService rvs = new ReviewService();
-	private int no;
-	private String input;
 	
 	
 	public void writeReview() throws Exception {
@@ -39,9 +34,9 @@ public class ReviewShow {
 		String rating = Main.SC.nextLine();
 		
 		conn = JdbcTemplate.getConnection();
-		sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,'1','1','1',?,?,SYSDATE,?)";
+		String sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,'1','1','1',?,?,SYSDATE,?)";
 		
-		pstmt = conn.prepareStatement(sql);
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
 		pstmt.setString(3, rating);
@@ -61,20 +56,19 @@ public class ReviewShow {
 		//글 목록 보여주기
 		showReviewList();
 		//삭제할 글 정보 받아오기
+		String no;
 		while(true) {
 			System.out.print("\n삭제할 글의 번호를 선택하세요(9. 뒤로가기) : ");
-			no = Main.SC.nextInt();
-			
-			if(no == 9) {
+			no = Main.SC.nextLine();
+			if("9".equals(no)) {
 				break;
 			}
-			
 			conn = JdbcTemplate.getConnection();
-			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			String sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
 			pstmt.setString(2, Main.loginMemberNo);
-			rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				break;
 			}else {
@@ -82,11 +76,12 @@ public class ReviewShow {
 			}
 			conn.close();
 		}
+		
 		//삭제 여부 수정 
 		conn = JdbcTemplate.getConnection();
-		sql = "UPDATE REVIEW SET RE_DEL_YN = 'Y' WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, no);
+		String sql = "UPDATE REVIEW SET RE_DEL_YN = 'Y' WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
 		pstmt.setString(2, Main.loginMemberNo);
 		result = pstmt.executeUpdate();
 		//글 목록으로 돌아가기
@@ -104,19 +99,19 @@ public class ReviewShow {
 		//글 목록 보여주기
 		showReviewList();
 		//수정할 글 정보 받아오기
+		String no;
 		while(true) {
 			System.out.print("\n수정할 글의 번호를 입력하세요 : ");
-			no = Main.SC.nextInt();
-			Main.SC.nextLine();
-			if(no == 9) {
+			no = Main.SC.nextLine();
+			if("9".equals(no)) {
 				return;
 			}
-			sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
+			String sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ? AND MEMBER_NO = ?";
 			conn = JdbcTemplate.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
 			pstmt.setString(2, Main.loginMemberNo);
-			rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				break;
 			}else {
@@ -125,7 +120,7 @@ public class ReviewShow {
 			conn.close();
 		}
 		//수정할 글 상세조회
-		showDetailReview();
+		showDetailReview(no);
 		//수정할 정보 받아오기
 		System.out.println("\n수정할 제목을 입력하세요.(수정사항 없으면 9) : ");
 		String title = Main.SC.nextLine();
@@ -136,10 +131,10 @@ public class ReviewShow {
 		//제목 수정사항 없으면 내용 수정으로 넘어가기 
 		if(true) {
 			conn = JdbcTemplate.getConnection();
-			sql = "SELECT RE_TITLE FROM REVIEW WHERE REVIEW_NO = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,no);
-			rs = pstmt.executeQuery();
+			String sql = "SELECT RE_TITLE FROM REVIEW WHERE REVIEW_NO = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,no);
+			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				title = rs.getString(1);
 			}
@@ -150,15 +145,15 @@ public class ReviewShow {
 		}
 		String content = Main.SC.nextLine();
 		
-		sql = "UPDATE REVIEW SET RE_TITLE = ?, RE_CONTENT = ? WHERE REVIEW_NO = ?";
+		String sql = "UPDATE REVIEW SET RE_TITLE = ?, RE_CONTENT = ? WHERE REVIEW_NO = ?";
 		conn = JdbcTemplate.getConnection();
-		pstmt = conn.prepareStatement(sql);
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
-		pstmt.setInt(3, no);
+		pstmt.setString(3, no);
 		result = pstmt.executeUpdate();
 		
-		showDetailReview();
+		showDetailReview(no);
 		
 		if(result == 1) {
 			System.out.println("\n수정 완료");
@@ -174,50 +169,57 @@ public class ReviewShow {
 	}
 	
 	public void showReviewList() throws Exception {
-		System.out.println("                             리뷰 게시판");
+		System.out.println("\n                             리뷰 게시판");
 		System.out.println("");
 		System.out.println("NO          TITLE             RATING           WRITER             DATE");
 		System.out.println("---------------------------------------------------------------------------");
 		
-		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') "
+		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,25), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,10), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') "
 				+ "FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO WHERE RE_DEL_YN = 'N' ORDER BY REVIEW_NO ";
 		conn = JdbcTemplate.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
 		
 		while(rs.next()) {
-			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
-		}
+	         System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
+	      }
 		rs.close();
 		conn.close();
+	      
 		
 	}
 	
 	public void requestDatail() throws Exception {
 		while(true) {
-			System.out.print("\n1.글 상세조회\n2.글 목록 조회\n9.리뷰로 돌아가기\n\n메뉴를 선택하세요 : ");
-			no = Main.SC.nextInt();
-			if(no == 1) {
+			System.out.println("\n                         1.글 상세조회");
+			System.out.println("                         2.글 목록 조회");
+			System.out.println("                         9.리뷰로 돌아가기");
+			System.out.println("");
+			System.out.print("                        입력 >> ");
+			String input = Main.SC.nextLine();
+			if("1".equals(input)) {
+				String no;
 				while(true) {
-					System.out.print("\n상세조회 할 글의 번호를 입력하세요(9.뒤로가기) : ");
-					no = Main.SC.nextInt();
+					System.out.println("\n                         상세조회 할 글의 번호를 입력하세요(9.뒤로가기)");
+					System.out.print("                        입력 >> ");
+					no = Main.SC.nextLine();
 					conn = JdbcTemplate.getConnection();
-					sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					rs = pstmt.executeQuery();
+					String sql = "SELECT REVIEW_NO FROM REVIEW WHERE REVIEW_NO = ?";
+					PreparedStatement pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, no);
+					ResultSet rs = pstmt.executeQuery();
 					if(rs.next()) {
-						showDetailReview();
+						showDetailReview(no);
 						break;
-					}else if(no == 9){
+					}else if("9".equals(no)){
 						break;
 					}else {
 						System.out.println("해당하는 글이 없습니다. 다시 입력해주세요.");
 					}
 				}
-			}else if(no == 2) {
+			}else if("2".equals(input)) {
 				showReviewList();
-			}else if(no == 9) {
+			}else if("9".equals(input)) {
 				break;
 			}else {
 				System.out.println("다시 입력해주세요.");
@@ -226,7 +228,7 @@ public class ReviewShow {
 		}
 	}
 	
-	public void showDetailReview() throws Exception {
+	public void showDetailReview(String no) throws Exception {
 		
 		System.out.println("\nNO          TITLE             RATING           WRITER             DATE");
 		System.out.println("---------------------------------------------------------------------------");
@@ -234,8 +236,8 @@ public class ReviewShow {
 		
 		String sql = "SELECT REVIEW_NO, RPAD(RE_TITLE,23), RPAD(STAR_COUNT,10), RPAD(MEMBER_NICK,15), TO_CHAR(RE_ENROLL_DATE, 'YYYY-MM-DD') FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO WHERE REVIEW_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, no);
-		rs = pstmt.executeQuery();
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
 			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4)+ "\t" +rs.getString(5));
 		}
@@ -245,7 +247,7 @@ public class ReviewShow {
 		
 		sql = "SELECT RE_CONTENT FROM REVIEW WHERE REVIEW_NO = ?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, no);
+		pstmt.setString(1, no);
 		rs = pstmt.executeQuery();
 		if(rs.next()) {
 			System.out.println("내용\n: " + rs.getString(1));
@@ -253,6 +255,11 @@ public class ReviewShow {
 		System.out.println("===========================================================================");
 		rs.close();
 		conn.close();
+	
+		
+	
 	}
+	
+	
 
 }

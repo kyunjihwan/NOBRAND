@@ -87,7 +87,8 @@ public class ManagerEvent {
 	public String showEventBoard() throws Exception {
 		Connection conn = JdbcTemplate.getConnection();
 		
-		String sql = "SELECT E_CONTENT FROM EVENT ORDER BY dbms_random.value";
+//		String sql = "SELECT E_CONTENT FROM EVENT ORDER BY dbms_random.value";
+		String sql = "SELECT LPAD(E_CONTENT,35) E_CONTENT FROM EVENT ORDER BY dbms_random.value";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		

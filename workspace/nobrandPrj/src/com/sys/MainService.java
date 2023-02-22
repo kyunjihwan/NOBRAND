@@ -112,9 +112,9 @@ public class MainService {
 	
 	private void showMenuService() throws Exception {
 		
-		System.out.println("         --------------------------------------------         ");
-		System.out.println("                           " + me.showEventBoard());
-		System.out.println("         --------------------------------------------         ");
+		System.out.println("      -----------------------------------------------         ");
+		System.out.println(me.showEventBoard());
+		System.out.println("      -----------------------------------------------         ");
 		System.out.println("                         1. 마이페이지");
 		System.out.println("                         2. 좋아요");
 		System.out.println("                         3. 장바구니");
