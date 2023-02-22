@@ -93,7 +93,7 @@ public class MemberService {
 		if(rs.next()) {
 			String nick = rs.getString("MANGER_NICK");
 			System.out.println();
-			System.out.println("                   " + nick + " 님 환영합니다.");
+			System.out.println("                   * " + nick + " 님 환영합니다 *");
 			Main.loginManagerNick = nick;
 		}else {
 			System.out.println("로그인 실패");

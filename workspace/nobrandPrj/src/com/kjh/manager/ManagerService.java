@@ -15,6 +15,7 @@ public class ManagerService {
 		
 		showManagerMenu();
 		
+		System.out.print("                        입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if(input.equals("9")) {
@@ -46,10 +47,12 @@ public class ManagerService {
 	}
 	
 	public void showManagerMenu() {
-		System.out.println("1. 상품 관련");
-		System.out.println("2. 고객문의센터");
-		System.out.println("3. 이벤트");
-		System.out.println("9. 뒤로가기");
+		
+		System.out.println("                         1. 상품 관련");
+		System.out.println("                         2. 고객문의센터");
+		System.out.println("                         3. 이벤트");
+		System.out.println("                         9. 뒤로가기");
+		System.out.println();
 	}
 	
 	private boolean startManagerEvent() throws Exception {
@@ -78,6 +81,7 @@ public class ManagerService {
 	private boolean startMangerProduct() throws Exception {
 		showManagerProduct();
 		
+		System.out.print("                        입력 >> ");
 		String input = Main.SC.nextLine();
 		
 		if(input.equals("9")) {
@@ -95,11 +99,13 @@ public class ManagerService {
 	}
 	
 	private void showManagerProduct() {
-		System.out.println("1. 상품 등록");
-		System.out.println("2. 상품 삭제");
-		System.out.println("3. 카테고리 등록");
-		System.out.println("4. 카테고리 삭제");
-		System.out.println("9. 뒤로가기");
+		System.out.println();
+		System.out.println("                         1. 상품 등록");
+		System.out.println("                         2. 상품 삭제");
+		System.out.println("                         3. 카테고리 등록");
+		System.out.println("                         4. 카테고리 삭제");
+		System.out.println("                         9. 뒤로가기");
+		System.out.println();
 	}
 	
 	private boolean startManagerInquiry() throws Exception {
