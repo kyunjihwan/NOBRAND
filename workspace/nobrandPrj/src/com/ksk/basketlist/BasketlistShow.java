@@ -13,7 +13,8 @@ public class BasketlistShow {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		
-		System.out.println("===== 장바구니내역 =====");
+		System.out.println("                ========= 상품 등록 =========");
+		System.out.println();
 		String sql = "SELECT BL.BASKETLIST_NO , PROD_NAME , PRICE, LETTER, LETTER_POTION FROM BASKETLIST BL JOIN BASKET B ON BL.BASKET_NO = B.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO WHERE MEMBER_NO = ? ORDER BY BASKETLIST_NO";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
@@ -25,6 +26,7 @@ public class BasketlistShow {
 			String Price = rs.getString("PRICE");
 			String letter = rs.getString("LETTER");
 			String letterPot = rs.getString("LETTER_POTION");
+
 			
 			System.out.println(BasketlistNo + " | "  +  ProdName + " | " + Price + " | " + letter + " | " + letterPot);
 			}
@@ -32,5 +34,6 @@ public class BasketlistShow {
 		conn.close();
 			
 	}
+
 
 }

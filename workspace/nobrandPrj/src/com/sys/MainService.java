@@ -7,6 +7,7 @@ import com.ksk.basketlist.BasketlistShow;
 import com.ljh.inquirycenter.InquiryService;
 import com.ljh.review.ReviewService;
 import com.nobrand.main.Main;
+import com.lhc.coupon.CouponLoad;
 
 public class MainService {
 	
@@ -19,6 +20,7 @@ public class MainService {
 	BasketlistShow bs = new BasketlistShow();
 	ManagerEvent me = new ManagerEvent();
 	ReviewService rs = new ReviewService();
+	private CouponLoad cp = new CouponLoad();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기
@@ -110,9 +112,9 @@ public class MainService {
 	
 	private void showMenuService() throws Exception {
 		
-		System.out.println("         --------------------------------------------         ");
-		System.out.println("                           " + me.showEventBoard());
-		System.out.println("         --------------------------------------------         ");
+		System.out.println("      -----------------------------------------------         ");
+		System.out.println(me.showEventBoard());
+		System.out.println("      -----------------------------------------------         ");
 		System.out.println("                         1. 마이페이지");
 		System.out.println("                         2. 좋아요");
 		System.out.println("                         3. 장바구니");
@@ -137,7 +139,8 @@ public class MainService {
 		switch(input) {
 		case "1" : mp.showMemberInfo(); break;
 		case "2" : ms.updateMemberInfo(); break;
-		
+		case "3" : mp.showOrderProduct(); break;
+		case "4" : cp.couponShow(); break;
 		default : System.out.println("잘못 입력했습니다."); 
 		}
 		
@@ -149,6 +152,8 @@ public class MainService {
 
 		System.out.println("1. 회원정보 조회");
 		System.out.println("2. 회원정보 수정");
+		System.out.println("3. 구매내역");
+		System.out.println("4. 쿠폰함");
 		System.out.println("9. 뒤로가기");
 		
 	}

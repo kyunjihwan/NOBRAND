@@ -58,6 +58,8 @@ public class ProductShow {
 			System.out.print(sizeArr.get(i));
 		}
 		System.out.println();
+		showProductreview(prodName, conn);
+		System.out.println();
 		
 		System.out.println("1. 장바구니 담기");
 		System.out.println("2. 좋아요 등록");
@@ -76,6 +78,33 @@ public class ProductShow {
 		conn.close();
 		
 	}
+	
+	public void showProductreview(String prodName, Connection conn) throws Exception {
+			System.out.println("                  리뷰 게시판");
+			System.out.println("");
+			System.out.println(" TITLE             RATING           CONTENT");
+			System.out.println("------------------------------------------------------- ");
+			
+			String sql = "SELECT RPAD(RE_TITLE,19) , STAR_COUNT , RPAD(RE_CONTENT,23) FROM REVIEW R JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO JOIN PRODUCT P ON R.PRODUCT_NO = P.PROD_NO WHERE RE_DEL_YN = 'N' AND PROD_NAME = ? ORDER BY REVIEW_NO";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, prodName);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				
+				
+				System.out.print(" " + rs.getString("RPAD(RE_TITLE,19)"));
+				int star = Integer.parseInt(rs.getString("STAR_COUNT"));
+				
+				for(int i = 0; i < star; i++) {
+					System.out.print("*");
+				}
+				System.out.println("           " +rs.getString("RPAD(RE_CONTENT,23)"));
+			}
+			
+	}
+	
 	
 	public void showProductitem(String kindNum, Connection conn) throws Exception {
 		String sql = "SELECT DISTINCT PROD_NAME, COLOR_NAME, PRICE FROM PRODUCT D JOIN COLOR C ON D.COLOR_NO = C.COLOR_NO WHERE KIND_NO = ? AND PROD_DEL_YN = 'N'";

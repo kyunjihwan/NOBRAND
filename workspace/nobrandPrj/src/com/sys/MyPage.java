@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.jdbc.JdbcTemplate;
 import com.nobrand.main.Main;
 
 public class MyPage {
@@ -43,8 +44,41 @@ public class MyPage {
 		conn.close();
 	}
 	
-	
-	
+	//구매내역 조회
+	public void showOrderProduct() throws Exception {
+		
+			
+		//select
+		Connection conn = JdbcTemplate.getConnection();
+		String sql = "SELECT OP.ORD_NUM,P.PROD_NO, PROD_NAME , PRICE, LETTER, LETTER_POTION, SIZE_NAME FROM ORDER_PRODUCT OP JOIN BASKETLIST BL ON BL.BASKETLIST_NO = OP.BASKETLIST_NO JOIN BASKET B ON B.BASKET_NO = BL.BASKET_NO JOIN PRODUCT P ON B.PROD_NO = P.PROD_NO JOIN MAGNITUDE M ON M.SIZE_NO = P.SIZE_NO WHERE BL.MEMBER_NO = ?"; 
+				
+				
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, Main.loginMemberNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		
+		//결과집합에서 데이터 꺼내기
+		while(rs.next()) {
+			
+			String on = rs.getString("ORD_NUM");
+			String pno = rs.getString("PROD_NO");
+			String pname = rs.getString("PROD_NAME");
+			String price = rs.getString("PRICE");
+			String le = rs.getString("LETTER");
+			String lep = rs.getString("LETTER_POTION");
+			String sz = rs.getString("SIZE_NAME");
+			
+			
+			System.out.println(on + "     | " + pno + "   | " + pname + "   | " + price + " | " + le + " | " + lep + " | " + sz);
+			
+		}
+		
+		
+		
+		conn.close();
+	}
+
 	
 	
 	

@@ -10,10 +10,7 @@ import com.sys.MemberData;
 
 public class InquiryShow {
 	
-	private String sql;
-	private PreparedStatement pstmt;
 	private Connection conn;
-	private ResultSet rs;
 	private int result;
 	private int no;
 	private InquiryService is = new InquiryService();
@@ -22,8 +19,8 @@ public class InquiryShow {
 	public void writeBoard () throws Exception {
 		InquiryData data = ip.writeBoardInput();
 		conn = JdbcTemplate.getConnection();
-		sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL, ? , ? , ? , SYSDATE)";
-		pstmt = conn.prepareStatement(sql);
+		String sql = "INSERT INTO INQUIRYCENTER (INQ_NO, MEMBER_NO, INQ_TITLE, INQ_CONTENT, INQ_ENROLL_DATE) VALUES (SEQ_INQ_NO.NEXTVAL, ? , ? , ? , SYSDATE)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
 		pstmt.setString(2, data.getTitle());
 		pstmt.setString(3, data.getContent());
@@ -40,8 +37,8 @@ public class InquiryShow {
 		showBoardList();
 		InquiryData data = ip.deleteBoardInput(conn);
 		conn = JdbcTemplate.getConnection();
-		sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ? AND MEMBER_NO = ?";
-		pstmt = conn.prepareStatement(sql);
+		String sql = "UPDATE INQUIRYCENTER SET INQ_DEL_YN = 'Y' WHERE INQ_NO = ? AND MEMBER_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, data.getNo());
 		pstmt.setString(2, Main.loginMemberNo);
 		result = pstmt.executeUpdate();
@@ -84,10 +81,10 @@ public class InquiryShow {
 		//제목 수정 사항 없으면 내용 수정으로 넘어 가기
 		if(title.equals("9")) {
 				conn = JdbcTemplate.getConnection();
-				sql = "SELECT INQ_TITLE FROM INQUIRYCENTER WHERE INQ_NO = ?";
-				pstmt = conn.prepareStatement(sql);
+				String sql = "SELECT INQ_TITLE FROM INQUIRYCENTER WHERE INQ_NO = ?";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1,no);
-				rs = pstmt.executeQuery();
+				ResultSet rs = pstmt.executeQuery();
 				if(rs.next()) {
 					title = rs.getString(1);
 				}
@@ -99,8 +96,8 @@ public class InquiryShow {
 		String content = Main.SC.nextLine();
 
 		conn = JdbcTemplate.getConnection();
-		sql = "UPDATE INQUIRYCENTER SET INQ_TITLE = ?, INQ_CONTENT = ? WHERE INQ_NO = ?";
-		pstmt = conn.prepareStatement(sql);
+		String sql = "UPDATE INQUIRYCENTER SET INQ_TITLE = ?, INQ_CONTENT = ? WHERE INQ_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
 		pstmt.setInt(3, no);
@@ -115,15 +112,16 @@ public class InquiryShow {
 	}
 	
 	public void showBoardList() throws Exception {
-		System.out.println("                   문의 게시판");
+		System.out.println("");
+		System.out.println("                        문의 게시판");
 		System.out.println("");
 		System.out.println("NO        TITLE          WRITER           DATE");
 		System.out.println("--------------------------------------------------");
-		sql = "SELECT INQ_NO, RPAD(INQ_TITLE,15), RPAD(MEMBER_NICK,10), TO_CHAR(INQ_ENROLL_DATE, 'YYYY-MM-DD') "
+		String sql = "SELECT INQ_NO, RPAD(INQ_TITLE,15), RPAD(MEMBER_NICK,10), TO_CHAR(INQ_ENROLL_DATE, 'YYYY-MM-DD') "
 				+ "FROM INQUIRYCENTER I JOIN MEMBER M ON I.MEMBER_NO = M.MEMBER_NO WHERE INQ_DEL_YN = 'N' ORDER BY INQ_NO";
 		conn = JdbcTemplate.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
 			System.out.println(rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4));
 		}
@@ -140,10 +138,10 @@ public class InquiryShow {
 					System.out.print("\n상세조회 할 글의 번호를 입력하세요(9.뒤로가기) : ");
 					no = Main.SC.nextInt();
 					conn = JdbcTemplate.getConnection();
-					sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
-					pstmt = conn.prepareStatement(sql);
+					String sql = "SELECT INQ_NO FROM INQUIRYCENTER WHERE INQ_NO = ?";
+					PreparedStatement pstmt = conn.prepareStatement(sql);
 					pstmt.setInt(1, no);
-					rs = pstmt.executeQuery();
+					ResultSet rs = pstmt.executeQuery();
 					if(rs.next()) {
 						showDetailBoard();
 						break;
@@ -170,13 +168,14 @@ public class InquiryShow {
 	}
 	
 	public void showDetailBoard() throws Exception {
+		String sql;
 		System.out.println("\nNO        TITLE          WRITER           DATE");
 		System.out.println("--------------------------------------------------");
 		conn = JdbcTemplate.getConnection();
 		sql = "SELECT INQ_NO, RPAD(INQ_TITLE,15), RPAD(MEMBER_NICK,10), TO_CHAR(INQ_ENROLL_DATE, 'YYYY-MM-DD') FROM INQUIRYCENTER I JOIN MEMBER M ON I.MEMBER_NO = M.MEMBER_NO WHERE INQ_NO = ?";
-		pstmt = conn.prepareStatement(sql);
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, no);
-		rs = pstmt.executeQuery();
+		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
 			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" +rs.getString(4));
 		}
