@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.jdbc.JdbcTemplate;
-import com.main.Main;
+import com.nobrand.main.Main;
 
 public class InquiryInput {
 	

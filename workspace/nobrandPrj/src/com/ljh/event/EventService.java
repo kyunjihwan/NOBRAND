@@ -1,6 +1,6 @@
 package com.ljh.event;
 
-import com.main.Main;
+import com.nobrand.main.Main;
 
 public class EventService {
 	

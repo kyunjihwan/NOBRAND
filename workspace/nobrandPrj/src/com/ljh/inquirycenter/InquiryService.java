@@ -1,6 +1,6 @@
 package com.ljh.inquirycenter;
 
-import com.main.Main;
+import com.nobrand.main.Main;
 
 public class InquiryService {
 	
