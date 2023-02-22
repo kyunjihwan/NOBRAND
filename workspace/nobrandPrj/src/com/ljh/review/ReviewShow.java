@@ -33,12 +33,13 @@ public class ReviewShow {
 		String rating = Main.SC.nextLine();
 		
 		conn = JdbcTemplate.getConnection();
-		String sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,'1','1','1',?,?,SYSDATE,?)";
+		String sql = "INSERT INTO REVIEW (REVIEW_NO, PRODUCT_NO, MEMBER_NO, MANAGER_NO, RE_TITLE, RE_CONTENT, RE_ENROLL_DATE, STAR_COUNT) VALUES (SEQ_REVIEW_NO.NEXTVAL,'1', ?,'1',?,?,SYSDATE,?)";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, title);
-		pstmt.setString(2, content);
-		pstmt.setString(3, rating);
+		pstmt.setString(1, Main.loginMemberNo);
+		pstmt.setString(2, title);
+		pstmt.setString(3, content);
+		pstmt.setString(4, rating);
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1) {
