@@ -11,7 +11,6 @@ public class Main {
       System.out.println("NOBRAND");
       
       Pay p = new Pay();
-      p.payService();
       
       
    }

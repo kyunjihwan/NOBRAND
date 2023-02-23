@@ -10,7 +10,7 @@ import com.ksk.basketlist.BasketlistShow;
 public class Pay {
 
 	// 결제정보
-	public void payService() throws Exception {
+	public void payService(Connection conn) throws Exception {
 
 		PayCancle pc = new PayCancle();
 
@@ -25,7 +25,7 @@ public class Pay {
 			Main.SC.nextLine();
 			switch (i) {
 			case 1:
-				payShow();
+				payShow(conn);
 				break;
 			case 2:
 				pc.payCancleService();
@@ -43,14 +43,14 @@ public class Pay {
 	}
 
 	// 주문한 상품 가져오기(완) - basketlistshow에서 가져오기
-	public void payShow() throws Exception {
+	public void payShow(Connection conn) throws Exception {
 
 		System.out.println("                        결제 (y/n)");
 		System.out.print("                       입력 >> ");
 		String yn = Main.SC.nextLine();
 
 		if (yn.equals("y") || yn.equals("Y")) {
-			pay();
+			pay(conn);
 		} else if (yn.equals("n") || yn.equals("N")) {
 			System.out.println("                        결제 취소");
 		} else {
@@ -60,16 +60,15 @@ public class Pay {
 	}
 
 	// 결제
-	public void pay() throws Exception {
+	public void pay(Connection conn) throws Exception {
 
 		// 결제수단
-		payType();
+		payType(conn);
 
 	}
 
-	public void payType() throws Exception {
+	public void payType(Connection conn) throws Exception {
 
-		Connection conn = JdbcTemplate.getConnection();
 
 		System.out.println("                        결제수단 선택");
 		String sql = "SELECT PAY_TYPE_NO, PAY_TYPE_NAME FROM PAY_TYPE";
@@ -92,9 +91,8 @@ public class Pay {
 
 			if (pt.equals("1")) {
 				System.out.println("                     계좌이체로 결제합니다.");
-				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
-				Connection conn2 = JdbcTemplate.getConnection();
-				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAL, ?, 'Y', SYSDATE,'1')";
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setString(1, pt);
 
 				int result = pstmt2.executeUpdate();
@@ -110,9 +108,8 @@ public class Pay {
 				
 			} else if (pt.equals("2")) {
 				System.out.println("                     카드로 결제합니다.");
-				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
-				Connection conn2 = JdbcTemplate.getConnection();
-				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAL, ?, 'Y', SYSDATE,'1')";
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setString(1, pt);
 
 				int result = pstmt2.executeUpdate();
@@ -128,9 +125,8 @@ public class Pay {
 				
 			} else if(pt.equals("3")) {
 				System.out.println("                     카카오페이로 결제합니다.");
-				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
-				Connection conn2 = JdbcTemplate.getConnection();
-				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAL, ?, 'Y', SYSDATE,'1')";
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setString(1, pt);
 
 				int result = pstmt2.executeUpdate();
@@ -145,9 +141,8 @@ public class Pay {
 				break;
 			}else if(pt.equals("4")) {
 				System.out.println("                     비트코인으로 결제합니다.");
-				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAl, ?, 'Y', SYSDATE,'1')";
-				Connection conn2 = JdbcTemplate.getConnection();
-				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
+				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAL, ?, 'Y', SYSDATE,'1')";
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setString(1, pt);
 
 				int result = pstmt2.executeUpdate();
@@ -173,7 +168,7 @@ public class Pay {
 	// 결제상품 나열
 	public void payProduct() throws Exception {
 
-		String sql = "SELECT PAY_NO, PROD_NAME, PRICE, COLOR_NAME, PROD_CONTENT FROM COLOR C JOIN PRODUCT P ON P.COLOR_NO = C.COLOR_NO JOIN BASKET B ON P.PROD_NO = B.PROD_NO JOIN BASKETLIST BL ON B.BASKET_NO = BL.BASKET_NO JOIN ORDER_PRODUCT OP ON OP.BASKETLIST_NO = BL.BASKETLIST_NO JOIN PAY P ON OP.ORD_NUM = P.ORDER_NO WHERE P.PAY_YN = 'Y'";
+		String sql = "SELECT PAY_NO, PROD_NAME, PRICE, COLOR_NAME FROM COLOR C JOIN PRODUCT P ON P.COLOR_NO = C.COLOR_NO JOIN BASKET B ON P.PROD_NO = B.PROD_NO JOIN BASKETLIST BL ON B.BASKET_NO = BL.BASKET_NO JOIN ORDER_PRODUCT OP ON OP.BASKETLIST_NO = BL.BASKETLIST_NO JOIN PAY P ON OP.ORD_NUM = P.ORDER_NO WHERE P.PAY_YN = 'Y'";
 		Connection conn = JdbcTemplate.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -188,10 +183,8 @@ public class Pay {
 			String prodName = rs.getString("PROD_NAME");
 			String price = rs.getString("PRICE");
 			String colorName = rs.getString("COLOR_NAME");
-			String prodContent = rs.getString("PROD_CONTENT");
-
 			
-			System.out.println(" " + payNo + "            "  +  prodName + "           " + price + "         " + colorName + "           " + prodContent);
+			System.out.println(" " + payNo + "            "  +  prodName + "           " + price + "         " + colorName + "           " );
 
 		}
 
