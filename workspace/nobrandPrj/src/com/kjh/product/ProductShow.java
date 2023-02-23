@@ -158,7 +158,7 @@ public class ProductShow {
 
 		rs.next();
 		String proNum = rs.getString("PROD_NO");
-
+		
 		return proNum;
 	};
 

@@ -7,6 +7,7 @@ import com.ksk.basketlist.BasketlistShow;
 import com.ljh.inquirycenter.InquiryService;
 import com.ljh.review.ReviewService;
 import com.nobrand.main.Main;
+import com.lhc.PayCancle;
 import com.lhc.coupon.CouponLoad;
 
 public class MainService {
@@ -21,6 +22,7 @@ public class MainService {
 	ManagerEvent me = new ManagerEvent();
 	ReviewService rs = new ReviewService();
 	private CouponLoad cp = new CouponLoad();
+	private PayCancle pc = new PayCancle();
 	
 	public boolean startService() throws Exception {
 		//선택지 보여주기

@@ -79,7 +79,7 @@ public class MyPage {
 			String sz = rs.getString("SIZE_NAME");
 			
 			
-			System.out.println(" " + on + "         " + pno + "                " + pname + "            " + price + "         " + le + "          " + lep + "            " + sz);
+			System.out.println(" " + on + "       \t" + pno + "        \t" + pname + "       \t" + price + "       \t" + le + "       \t" + lep + "       \t" + sz);
 			
 		}
 		
