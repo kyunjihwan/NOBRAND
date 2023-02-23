@@ -54,6 +54,7 @@ public class OrderProductShow {
 					pstmt.setString(4, price);
 					
 					pstmt.executeUpdate();
+					updateBasket(searchtBasketList(arr[i], conn), conn);
 				}
 			}else if (choiceNum.equals("9")) {
 				return ;
@@ -61,7 +62,6 @@ public class OrderProductShow {
 				System.out.println("                        잘못 입력하셨습니다.");
 			}
 
-				updateBasket(conn);
 				
 				
 				//결제 메소드로 이동
@@ -74,9 +74,23 @@ public class OrderProductShow {
 			
 	}
 	
-	public void updateBasket(Connection conn) throws Exception {
-		String sql = "UPDATE BASKET SET BUY_YN = 'Y' WHERE BUY_YN = 'N'";
+	public String searchtBasketList(String arr, Connection conn) throws Exception {
+		String sql = "SELECT BL.BASKET_NO FROM BASKETLIST BL JOIN BASKET B ON BL.BASKET_NO = B.BASKET_NO WHERE BASKETLIST_NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, arr);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		
+		String num = rs.getString("BASKET_NO");
+		
+		return num;
+		
+	}
+	
+	public void updateBasket(String num, Connection conn) throws Exception {
+		String sql = "UPDATE BASKET SET BUY_YN = 'Y' WHERE BUY_YN = 'N' AND BASKET_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, num);
 		pstmt.execute();
 	}
 	
