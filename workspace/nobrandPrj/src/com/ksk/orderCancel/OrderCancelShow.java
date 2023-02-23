@@ -26,8 +26,9 @@ public class OrderCancelShow {
 		String choiceNum = Main.SC.nextLine();
 
 		if (choiceNum.equals("1")) {
+			
+			System.out.println();
 
-			System.out.print("주문취소할 주문번호 : ");
 			System.out.println("                        주문취소번호");
 			System.out.print("                       입력 >> ");
 			String can = Main.SC.nextLine();

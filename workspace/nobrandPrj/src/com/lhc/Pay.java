@@ -179,6 +179,9 @@ public class Pay {
 
 		ResultSet rs = pstmt.executeQuery();
 
+		System.out.println(" PAY_NO    PROD_NAME          PRICE           COLOR        PROD_CONTENT ");
+		System.out.println(" ═══════════════════════════════════════════════════════════════");
+		
 		while (rs.next()) {
 
 			String payNo = rs.getString("PAY_NO");
@@ -187,8 +190,7 @@ public class Pay {
 			String colorName = rs.getString("COLOR_NAME");
 			String prodContent = rs.getString("PROD_CONTENT");
 
-			System.out.println(" PAY_NO    PROD_NAME          PRICE           COLOR        PROD_CONTENT ");
-			System.out.println(" ═══════════════════════════════════════════════════════════════");
+			
 			System.out.println(" " + payNo + "            "  +  prodName + "           " + price + "         " + colorName + "           " + prodContent);
 
 		}
