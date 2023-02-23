@@ -63,13 +63,13 @@ public class OrderProductShow {
 
 				updateBasket(conn);
 				
-				conn.close();
 				
 				//결제 메소드로 이동
 				Pay p = new Pay();
-				p.payShow();
+				p.payShow(conn);
 				
 
+				conn.close();
 			
 			
 	}
