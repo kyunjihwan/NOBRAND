@@ -138,11 +138,9 @@ public class ReviewShow {
 		System.out.print("                       입력 >> ");
 		String title = Main.SC.nextLine();
 		
-		if(title.equals("9")) {
-			return;
-		}
+		
 		//제목 수정사항 없으면 내용 수정으로 넘어가기 
-		if(true) {
+		if(title.equals("9")) {
 			conn = JdbcTemplate.getConnection();
 			String sql = "SELECT RE_TITLE FROM REVIEW WHERE REVIEW_NO = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -155,7 +153,8 @@ public class ReviewShow {
 			System.out.print("                       입력 >> ");
 		//제목 수정 후 내용 수정
 		}else {
-			System.out.println("수정할 내용을 입력하세요 (수정사항 없으면 9) : ");
+			System.out.println("                      수정할 내용 (9. 뒤로가기) ");
+			System.out.print("                       입력 >> ");
 		}
 		String content = Main.SC.nextLine();
 		
