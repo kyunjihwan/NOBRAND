@@ -149,6 +149,7 @@ public class MainService {
 		case "2" : ms.updateMemberInfo(); break;
 		case "3" : mp.showOrderProduct(); break;
 		case "4" : cp.couponShow(); break;
+		case "5" : ms.withDraw(); break;
 		default : System.out.println("잘못 입력했습니다."); 
 		}
 		
@@ -166,6 +167,7 @@ public class MainService {
 		System.out.println("                        2. 회원정보 수정");
 		System.out.println("                        3. 구매내역");
 		System.out.println("                        4. 쿠폰함");
+		System.out.println("                        5. 회원탈퇴");
 		System.out.println("                        9. 뒤로가기");
 		
 	}

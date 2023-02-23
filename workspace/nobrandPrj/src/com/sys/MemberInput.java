@@ -157,7 +157,7 @@ public class MemberInput {
 	public MemberData deleteGreat() {
 		
 		System.out.println("                        삭제할 상품번호");
-		System.out.println("                       입력 >> ");
+		System.out.print("                       입력 >> ");
 		String productNo = Main.SC.nextLine();
 		
 		
@@ -202,7 +202,12 @@ public class MemberInput {
 	//회원탈퇴
 	public MemberData withDraw() {
 		
-		System.out.print("회원탈퇴 하시겠습니까? 1. Y 2. N: ");
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║              WITHDRAW            ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");	
+		System.out.println("                    회원탈퇴 하시겠습니까?(Y/N) ");
+		System.out.print("                       입력 >> ");
 		String withDrawalYN = Main.SC.nextLine();
 		
 		

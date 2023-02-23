@@ -67,7 +67,7 @@ public class MemberService {
 			System.out.println("                   * " + nick + " 님 환영합니다 *");
 			Main.loginMemberNick = nick;
 		}else {
-			System.out.println("로그인 실패");
+			System.out.println("                        로그인 실패");
 			isFinish = false;
 		}
 		
@@ -301,7 +301,7 @@ public class MemberService {
 		if(result == 1) {
 			System.out.println("                       *삭제됐습니다*");
 		}else {
-			System.out.println("                       실패");
+			System.out.println("                        실패");
 		}
 		
 		//커넥션 정리
@@ -395,14 +395,16 @@ public class MemberService {
 		//로그인 여부 검사
 		if(Main.loginMemberNick == null) {
 			System.out.println("로그인 한 유저만 삭제가 가능합니다.");
-			return;
+			return ;
 		}
 		
 		//유저 데이터 입력받기
 		MemberData data = mi.withDraw();
 		
 		if(data.getWithDrawalYN().equals("N")) {
-			return;
+			System.out.println("                        탈퇴 취소");
+			System.out.println();
+			return ;
 		}
 		
 		//select
@@ -417,9 +419,9 @@ public class MemberService {
 		
 		//결과에 따른 처리
 		if(result == 1) {
-			System.out.println("탈퇴완료");
+			System.out.println("                       *탈퇴완료*");
 		}else {
-			System.out.println("실패");
+			System.out.println("                        실패");
 		}
 		
 		//커넥션 정리
