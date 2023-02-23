@@ -14,27 +14,30 @@ public class Pay {
 
 		PayCancle pc = new PayCancle();
 
-		System.out.println("                        사용하실 기능을 선택해주세요");
-		System.out.println("                        1. 결제하기");
-		System.out.println("                        2. 결제취소");
-		// 전단계로 돌아가는 거
-		// System.out.println("9. OO시스템으로 돌아가기");
-		System.out.println("                        0. 시스템 종료");
-		int i = Main.SC.nextInt();
-		Main.SC.nextLine();
-		switch (i) {
-		case 1:
-			payShow();
-			break;
-		case 2:
-			pc.payCancleService();
-			break;
-		case 0:
-			System.out.println("시스템을 종료합니다.");
-			return;
-		default:
-			System.out.println("입력을 잘못하였습니다. 다시 입력해주세요");
-			break;
+		while (true) {
+			System.out.println("사용하실 기능을 선택해주세요");
+			System.out.println("1. 결제하기");
+			System.out.println("2. 결제취소");
+			// 전단계로 돌아가는 거
+			// System.out.println("9. OO시스템으로 돌아가기");
+			System.out.println("0. 시스템 종료");
+			int i = Main.SC.nextInt();
+			Main.SC.nextLine();
+			switch (i) {
+			case 1:
+				payShow();
+				break;
+			case 2:
+				pc.payCancleService();
+				break;
+			case 0:
+				System.out.println("시스템을 종료합니다.");
+				return;
+			default:
+				System.out.println("입력을 잘못하였습니다. 다시 입력해주세요");
+				continue;
+			}
+
 		}
 
 	}
@@ -104,7 +107,7 @@ public class Pay {
 					System.out.println();
 				}
 				break;
-
+				
 			} else if (pt.equals("2")) {
 				System.out.println("                     카드로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
@@ -122,8 +125,8 @@ public class Pay {
 					System.out.println();
 				}
 				break;
-
-			} else if (pt.equals("3")) {
+				
+			} else if(pt.equals("3")) {
 				System.out.println("                     카카오페이로 결제합니다.");
 				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
@@ -140,9 +143,9 @@ public class Pay {
 					System.out.println();
 				}
 				break;
-			} else if (pt.equals("4")) {
+			}else if(pt.equals("4")) {
 				System.out.println("                     비트코인으로 결제합니다.");
-				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.NEXTVAL, ?, 'Y', SYSDATE,'1')";
+				String sql2 = "INSERT INTO PAY(PAY_NO, ORDER_NO, PAY_TYPE_NO, PAY_YN, PAY_DATE, PAY_COUNT_NO) VALUES (SEQ_PAY_NO.NEXTVAL, SEQ_ORD_NO.CURRVAl, ?, 'Y', SYSDATE,'1')";
 				Connection conn2 = JdbcTemplate.getConnection();
 				PreparedStatement pstmt2 = conn2.prepareStatement(sql2);
 				pstmt2.setString(1, pt);
@@ -158,7 +161,7 @@ public class Pay {
 				}
 				break;
 			}
-
+			
 			else {
 				System.out.println("                        사용할 수 없는 결제 수단입니다.");
 				continue;
@@ -184,7 +187,9 @@ public class Pay {
 			String colorName = rs.getString("COLOR_NAME");
 			String prodContent = rs.getString("PROD_CONTENT");
 
-			System.out.println(payNo + " | " + prodName + " | " + price + " | " + colorName + " | " + prodContent);
+			System.out.println(" PAY_NO    PROD_NAME          PRICE           COLOR        PROD_CONTENT ");
+			System.out.println(" ═══════════════════════════════════════════════════════════════");
+			System.out.println(" " + payNo + "            "  +  prodName + "           " + price + "         " + colorName + "           " + prodContent);
 
 		}
 

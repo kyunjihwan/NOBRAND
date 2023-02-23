@@ -106,6 +106,7 @@ public class MainService {
 		case "4" : ps.showProduct(); break;
 		case "5" : is.inquiry(); break;
 		case "6" : rs.review(); break;
+		case "7" : pc.payCancleService(); break;
 		default : System.out.println("잘못 입력했습니다."); 
 		}
 		
@@ -130,6 +131,7 @@ public class MainService {
 		System.out.println("                        4. 쇼핑페이지");
 		System.out.println("                        5. 고객문의센터");
 		System.out.println("                        6. 리뷰 게시판");
+		System.out.println("                        7. 상품환불");
 		System.out.println("                        9. 뒤로가기");
 		System.out.println();
 		
