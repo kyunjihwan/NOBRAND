@@ -25,7 +25,7 @@ public class BasketlistShow {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, Main.loginMemberNo);
 		ResultSet rs = pstmt.executeQuery();
-		System.out.println(" ORD_NO    PROD_NAME        PRICE        LETTER        LETTER_P ");
+		System.out.println(" BASKETLIST_NO    PROD_NAME        PRICE        LETTER        LETTER_P ");
 		System.out.println(" ═══════════════════════════════════════════════════════════════");
 			while(rs.next()) {
 			String BasketlistNo = rs.getString("BASKETLIST_NO");
@@ -35,7 +35,7 @@ public class BasketlistShow {
 			String letterPot = rs.getString("LETTER_POTION");
 
 			
-			System.out.println(" " + BasketlistNo + "            "  +  ProdName + "           " + Price + "         " + letter + "           " + letterPot);
+			System.out.println(" " + BasketlistNo + "                  "  +  ProdName + "           " + Price + "         " + letter + "           " + letterPot);
 			}
 			
 		conn.close();
