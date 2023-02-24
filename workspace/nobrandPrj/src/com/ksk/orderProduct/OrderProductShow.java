@@ -25,18 +25,16 @@ public class OrderProductShow {
 			
 			if (choiceNum.equals("1")) {
 				System.out.println();
-				System.out.println("           ╔══════════════════════════════════╗");
-				System.out.println("           ║               ORDER              ║ ");
-				System.out.println("           ╚══════════════════════════════════╝");	
-				System.out.println();
-				System.out.println("                        주문할 장바구니 번호(9. 뒤로가기) ");
+				System.out.println("                 주문할 장바구니 번호(9. 뒤로가기) ");
 				System.out.print("                       입력 >> ");
 				String basketListNum = Main.SC.nextLine();
 				if(basketListNum.equals("9")) {
 					return ;
 				}
 				String[] arr = basketListNum.split(",");
-				
+				System.out.println("           ╔══════════════════════════════════╗");
+				System.out.println("           ║               ORDER              ║ ");
+				System.out.println("           ╚══════════════════════════════════╝");	
 				System.out.println("                     1. 배송지주소 ");
 				System.out.print("                       입력 >> ");
 				String address = Main.SC.nextLine();

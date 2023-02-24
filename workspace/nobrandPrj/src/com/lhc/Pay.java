@@ -44,7 +44,11 @@ public class Pay {
 
 	// 주문한 상품 가져오기(완) - basketlistshow에서 가져오기
 	public void payShow(Connection conn) throws Exception {
-
+		System.out.println();
+		System.out.println("           ╔══════════════════════════════════╗");
+		System.out.println("           ║              PAYMENT             ║ ");
+		System.out.println("           ╚══════════════════════════════════╝");
+		System.out.println();
 		System.out.println("                        결제 (y/n)");
 		System.out.print("                       입력 >> ");
 		String yn = Main.SC.nextLine();
